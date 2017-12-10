@@ -22,11 +22,11 @@ dbAccess.once('open', () => {
     let port = server.address().port;
     console.log("App is running on port", port);
   });
-  dbAccess.db.collection("users", (err, collection) => {
-    collection.find({}).toArray((err,data) => {
-      console.log(data);
-    })
-  });
+  // dbAccess.db.collection("users", (err, collection) => {
+  //   collection.find({}).toArray((err,data) => {
+  //     console.log(data);
+  //   })
+  // });
 
   // db.collectionNames((err, names) => {
   //   console.log(names);
