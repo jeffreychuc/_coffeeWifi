@@ -6,18 +6,33 @@ const app = express();
 
 mongoose.Promise = global.Promise;
 
-var db;
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test'
+, {useMongoClient: true});
 
-mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
-let db_connection = mongoose.connection;
-db_connection.on('error', console.error.bind(console, 'connection error:'));
-db_connection.once('open', function() {
+const dbAccess = mongoose.connection;
+
+const db = dbAccess.db;
+
+dbAccess.on('error', console.error.bind(console, 'connection error:'));
+
+dbAccess.once('open', function() {
+
+
+  let server = app.listen(process.env.PORT || 8080, () => {
+    let port = server.address().port;
+    console.log("App is running on port", port);
+  })
 
 })
 
-app.get('/', (req, res) => {
-  res.send('Hello');
-  console.log("on root");
-})
 
-app.listen(3000, () => console.log('listening...'))
+
+app.get('/testinsert', (req, res) => {
+  console.log("on test");
+  db.collection("users", function(err, collection){
+        collection.find({}).toArray(function(err, data){
+            console.log(data); // it will print your collection data
+        })
+    });
+
+})
