@@ -20,9 +20,11 @@
     "react": "16.0.0",
     "react-native": "0.50.3",
     "react-native-auth0": "^1.2.1",
+    "react-native-maps": "^0.18.3",
     "react-native-sensitive-info": "^5.1.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0"
   }
 }
