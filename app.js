@@ -40,7 +40,7 @@ app.get('/testinsert', (req, res) => {
 app.post("/location", (req, res) => {
   console.log("in post");
   let newLocation = req.body;
-  db.collection("users").insertOne(newLocation, (err, doc) => {
+  db.collection("Locations").insertOne(newLocation, (err, doc) => {
     if (err) {
       res.status(500).json({"error": "Cannot post to locations"});
     } else {
