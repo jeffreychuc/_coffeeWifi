@@ -2,7 +2,6 @@ import express from 'express';
 import mongodb, { MongoClient } from 'mongodb';
 import mongoose, { Schema } from 'mongoose';
 
-const app = express();
 
 // mongoose.Promise = global.Promise;
 
@@ -35,6 +34,7 @@ const app = express();
 //   // })
 //
 // })
+const app = express();
 let db;
 
 mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test', (err, database) => {
@@ -56,8 +56,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:2701
 
 app.get('/testinsert', (req, res) => {
   console.log("on test");
-  // console.log(dbAccess.db.collections);
-  // res.setHeader('Content-Type', 'application/json');
+  res.send("hi")
 })
 
 app.get('/', (req, res) => {
@@ -66,7 +65,7 @@ app.get('/', (req, res) => {
 
 app.post("/users", (req, res) => {
   let newUser = req.body;
-  dbAccess.db.collection("users").insertOne(newUser, (err, doc) => {
+  db.collection("users").insertOne(newUser, (err, doc) => {
     if (err) {
       res.status(500).json({"error": "Cannot post to users"});
     } else {
