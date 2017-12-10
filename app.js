@@ -42,6 +42,7 @@ app.get('/testinsert', (req, res) => {
   dbAccess.db.collection("users", function(err, collection){
         collection.find({}).toArray(function(err, data){
             res.json(data);
+            console.log(data);
         })
     });
     return res;
