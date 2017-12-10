@@ -15,7 +15,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "express": "^4.16.2",
-    "mongodb": "^3.0.0-rc0",
+    "mongodb": "^2.2.33",
     "mongoose": "^4.13.6"
   }
 }

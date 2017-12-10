@@ -45,7 +45,6 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:2701
 
   db = database;
   console.log("Database connection ready");
-
   let server = app.listen(process.env.PORT || 8080,() => {
     let port = server.address().port;
     console.log("App now running on port", port);
@@ -56,6 +55,8 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:2701
 
 app.get('/testinsert', (req, res) => {
   console.log("on test");
+  console.log();
+  // console.log(db.collection("users"));
   res.send("hi")
 })
 
@@ -63,9 +64,11 @@ app.get('/', (req, res) => {
   res.send("HI THERE")
 });
 
-app.post("/users", (req, res) => {
+app.get("/users", (req, res) => {
+  console.log(db);
   let newUser = req.body;
   db.collection("users").insertOne(newUser, (err, doc) => {
+    console.log(doc);
     if (err) {
       res.status(500).json({"error": "Cannot post to users"});
     } else {
