@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
+import MapViewContainer from '../map/mapViewContainer';
 import SInfo from 'react-native-sensitive-info';
 import Auth0 from 'react-native-auth0';
 
 
-var credentials = require('../../auth0-credentials');
+var credentials = require('../../../auth0-credentials');
 const auth0 = new Auth0(credentials);
 
 export default class App extends React.Component {
@@ -60,7 +61,7 @@ export default class App extends React.Component {
     );
   }
 
-  render() {
+  renderSplash() {
     let loggedIn = this.props.loggedIn;
     return (
       <View style={styles.container}>
@@ -75,6 +76,15 @@ export default class App extends React.Component {
         <Text> {this.state.currentUserProfile ? JSON.stringify(this.state.currentUserProfile) : false} </Text>
       </View>
     );
+  }
+  render() {
+    let loggedIn = this.props.loggedIn;
+    if (loggedIn) {
+      return <MapViewContainer />;
+    }
+    else  {
+      return this.renderSplash();
+    }
   }
 }
 
