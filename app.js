@@ -40,13 +40,16 @@ app.get('/testinsert', (req, res) => {
   console.log("on test");
   console.log(dbAccess.db.collections);
   res.setHeader('Content-Type', 'application/json');
-  dbAccess.db.collection("users", function(err, collection){
-        collection.find({}).toArray(function(err, data){
-            res.json(data);
-            console.log(data);
-        })
-    });
-    return res;
+  dbAccess.db.collectionNames(function(error, names) {
+    if (error) {
+      console.log(error);
+    } else {
+      names.map(function(cname) {
+        console.log(cname.name);
+      });
+    }
+  });
+
 })
 
 app.get('/', (req, res) => {
