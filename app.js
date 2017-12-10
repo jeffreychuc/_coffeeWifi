@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
   res.send("HI THERE")
 });
 
-app.get("/users", (req, res) => {
+app.post("/users", (req, res) => {
   console.log(db);
   let newUser = req.body;
   db.collection("users").insertOne(newUser, (err, doc) => {
