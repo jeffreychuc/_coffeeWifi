@@ -1,7 +1,7 @@
 import express from 'express';
 import mongodb, { MongoClient } from 'mongodb';
 import mongoose, { Schema } from 'mongoose';
-
+import bodyParser from 'body-parser';
 
 // mongoose.Promise = global.Promise;
 
@@ -35,6 +35,7 @@ import mongoose, { Schema } from 'mongoose';
 //
 // })
 const app = express();
+app.use(bodyParser());
 let db;
 
 mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test', (err, database) => {
@@ -72,7 +73,7 @@ app.get("/users", (req, res) => {
     if (err) {
       res.status(500).json({"error": "Cannot post to users"});
     } else {
-      res.json(doc);
+       res.status(201).json(doc.ops[0]);
     }
   })
 });
