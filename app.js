@@ -1,34 +1,23 @@
+import express from 'express';
+import mongodb, { MongoClient } from 'mongodb';
+import mongoose, { Schema } from 'mongoose';
 
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var port = 4200;
-var cors = require('cors');
+const app = express();
 
-// Mongoose connection with mongodb
-mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://<uname>:<pwd>@ds139322.mlab.com:39322/aufinancex')
-    .then(() => { // if all is ok we will be here
-      console.log('Start');
-    })
-    .catch(err => { // if error we will be here
-        console.error('App starting error:', err.stack);
-        process.exit(1);
-    });
+mongoose.Promise = global.Promise;
 
-// Required application specific custom router module
-// var itemRouter = require('./src/routes/itemRouter');
+var db;
 
-// Use middlewares to set view engine and post json data to the server
-app.use(express.static('public'));
-app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
+let db_connection = mongoose.connection;
+db_connection.on('error', console.error.bind(console, 'connection error:'));
+db_connection.once('open', function() {
 
-// app.use('/items', itemRouter);
+})
 
-// Start the server
-app.listen(port, function(){
-  console.log('Server is running on Port: ',port);
-});
+app.get('/', (req, res) => {
+  res.send('Hello');
+  console.log("on root");
+})
+
+app.listen(3000, () => console.log('listening...'))
