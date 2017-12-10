@@ -40,3 +40,22 @@ Finding workspaces suitable for your needs as a student is a prevalent issue con
    - User location will be needed to know where to initially load the map view
 
 ## Wireframes
+
+#### Home
+![home](https://github.com/jeffreychuc/_coffeeWifi/blob/master/wireframes/home.png)
+
+
+#### Home pin details
+![home-pin-details](https://github.com/jeffreychuc/_coffeeWifi/blob/master/wireframes/home-pin-details.png)
+
+
+#### Categories
+
+- ##### Order
+![category-orders](https://github.com/jeffreychuc/_coffeeWifi/blob/master/wireframes/category-order.png)
+  - Order Menu Layout
+  ![order-menu-layout](https://github.com/jeffreychuc/_coffeeWifi/blob/master/wireframes/order-menu.png)
+
+
+##### Status
+![category-status](https://github.com/jeffreychuc/_coffeeWifi/blob/master/wireframes/category-status.png)
