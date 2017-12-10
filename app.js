@@ -11,17 +11,26 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test'
 
 const dbAccess = mongoose.connection;
 
-const db = dbAccess.db;
+let db = dbAccess;
 
 dbAccess.on('error', console.error.bind(console, 'connection error:'));
 
-dbAccess.once('open', function() {
+dbAccess.once('open', () => {
 
 
   let server = app.listen(process.env.PORT || 8080, () => {
     let port = server.address().port;
     console.log("App is running on port", port);
-  })
+  });
+  dbAccess.db.collection("users", (err, collection) => {
+    collection.find({}).toArray((err,data) => {
+      console.log(data);
+    })
+  });
+
+  // db.collectionNames((err, names) => {
+  //   console.log(names);
+  // })
 
 })
 
@@ -29,7 +38,7 @@ dbAccess.once('open', function() {
 
 app.get('/testinsert', (req, res) => {
   console.log("on test");
-  db.collection("users", function(err, collection){
+  dbAccess.db.collection("users", function(err, collection){
         collection.find({}).toArray(function(err, data){
             console.log(data); // it will print your collection data
         })
@@ -37,10 +46,10 @@ app.get('/testinsert', (req, res) => {
 
 })
 
-app.post("/location", (req, res) => {
+app.post("/users", (req, res) => {
   console.log("in post");
   let newLocation = req.body;
-  db.collection("Locations").insertOne(newLocation, (err, doc) => {
+  dbAccess.db.collection("users").insertOne(newUser, (err, doc) => {
     if (err) {
       res.status(500).json({"error": "Cannot post to locations"});
     } else {
