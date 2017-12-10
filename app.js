@@ -46,6 +46,10 @@ app.get('/testinsert', (req, res) => {
 
 })
 
+app.get('/', (req, res) => {
+  res.send("HI THERE")
+});
+
 app.post("/users", (req, res) => {
   console.log("in post");
   let newLocation = req.body;
