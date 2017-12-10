@@ -10,7 +10,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test'
 , {useMongoClient: true});
 
 const dbAccess = mongoose.connection;
-
+let userSchema = new Schema({
+  name: String
+});
+let User = mongoose.model('User', userSchema);
 // let db = dbAccess;
 
 dbAccess.on('error', console.error.bind(console, 'connection error:'));
@@ -28,8 +31,7 @@ dbAccess.once('open', () => {
   //   })
   // });
 
-  // db.collectionNames((err, names) => {
-  //   console.log(names);
+
   // })
 
 })
@@ -38,17 +40,10 @@ dbAccess.once('open', () => {
 
 app.get('/testinsert', (req, res) => {
   console.log("on test");
-  console.log(dbAccess.db.collections);
-  res.setHeader('Content-Type', 'application/json');
-  dbAccess.db.collectionNames(function(error, names) {
-    if (error) {
-      console.log(error);
-    } else {
-      names.map(function(cname) {
-        console.log(cname.name);
-      });
-    }
-  });
+  // console.log(dbAccess.db.collections);
+  // res.setHeader('Content-Type', 'application/json');
+  let testuser = new User({name: 'MYNAMEJEFF'});
+  testuser.save((err) => console.log(err));
 
 })
 
