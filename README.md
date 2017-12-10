@@ -54,6 +54,7 @@ Finding workspaces suitable for your needs as a student is a prevalent issue con
 - ##### Order
 ![category-orders](https://github.com/jeffreychuc/_coffeeWifi/blob/master/wireframes/category-order.png)
   - Order Menu Layout
+  
   ![order-menu-layout](https://github.com/jeffreychuc/_coffeeWifi/blob/master/wireframes/order-menu.png)
 
 
