@@ -21,6 +21,7 @@ export default class Map extends React.Component {
     );
     this.watchID = navigator.geolocation.watchPosition((position) => {
       let lastPosition = JSON.stringify(position);
+      console.log('setting state to, ', { lastPosition });
       this.setState({lastPosition});
     });
   }
