@@ -71,7 +71,7 @@ app.post("/users", (req, res) => {
   db.collection("users").insertOne(newUser, (err, doc) => {
     console.log(doc);
     if (err) {
-      res.status(500).json({"error": "Cannot post to users"});
+      res.status(500).json(err);
     } else {
        res.status(201).json(doc.ops[0]);
     }
