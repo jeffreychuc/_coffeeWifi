@@ -57,7 +57,7 @@ app.post("/users", (req, res) => {
     if (err) {
       res.status(500).json({"error": "Cannot post to users"});
     } else {
-      res.status(201).json(doc.ops[0]);
+      res.json(doc);
     }
   })
 });
