@@ -54,9 +54,14 @@ Finding workspaces suitable for your needs as a student is a prevalent issue con
 - ##### Order
 ![category-orders](https://github.com/jeffreychuc/_coffeeWifi/blob/master/wireframes/category-order.png)
   - Order Menu Layout
-  
+
   ![order-menu-layout](https://github.com/jeffreychuc/_coffeeWifi/blob/master/wireframes/order-menu.png)
 
 
 ##### Status
 ![category-status](https://github.com/jeffreychuc/_coffeeWifi/blob/master/wireframes/category-status.png)
+
+## Accomplished over the weekend
+  - Familiarize ourselves with each piece of the MERN stack enough to get things running
+  - Set up API endpoints for user auth on heroku
+  - Set up OAuth for user login
