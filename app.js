@@ -44,7 +44,7 @@ app.get('/testinsert', (req, res) => {
             res.json(data);
         })
     });
-
+    return res;
 })
 
 app.get('/', (req, res) => {
