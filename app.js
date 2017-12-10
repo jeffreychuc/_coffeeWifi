@@ -51,11 +51,10 @@ app.get('/', (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-  console.log("in post");
-  let newLocation = req.body;
+  let newUser = req.body;
   dbAccess.db.collection("users").insertOne(newUser, (err, doc) => {
     if (err) {
-      res.status(500).json({"error": "Cannot post to locations"});
+      res.status(500).json({"error": "Cannot post to users"});
     } else {
       res.status(201).json(doc.ops[0]);
     }
