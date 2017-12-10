@@ -38,9 +38,10 @@ dbAccess.once('open', () => {
 
 app.get('/testinsert', (req, res) => {
   console.log("on test");
+  res.setHeader('Content-Type', 'application/json');
   dbAccess.db.collection("users", function(err, collection){
         collection.find({}).toArray(function(err, data){
-            console.log(data); // it will print your collection data
+            res.json(data);
         })
     });
 
