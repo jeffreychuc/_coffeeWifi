@@ -16,7 +16,11 @@ Finding workspaces suitable for your needs as a student is a prevalent issue con
 
 ## Technologies and Technical Challenges
 ##### Stack: MERN (MongoDB, Express, React (Native), Node.js)
+ - #### Learning and utilizing a new stack to create a working production app in 7 business days
+  - In conjuction with utilizing the specific libraries to help achieve our MVPs
  - #### Workspace data
   - Gather as much relevant data for each workspace throught various APIs.
         - Google Places API, Yelp API, Internet Speed API
-  -
+ - #### Seed data sourcing
+  - _coffeeWifi will eventually be reliant on user input and setting up the infrastructure within our app for future accommodation will be a challenge
+    - 
