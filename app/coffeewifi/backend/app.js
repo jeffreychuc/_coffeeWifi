@@ -20,7 +20,15 @@ db.once('open', () => {
     let port = server.address().port;
     console.log("App now running on port", port);
   });
-
+  // let newUser = new User({name: "JEFF!#"});
+  // newUser.save((err) => {console.log(err);} )
+  // User.findOne({name: "JEFF!#"}, (err, docs) => {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   console.log(docs);
+  // });
+  // User.find({})
 });
 
 const app = express();
@@ -37,9 +45,20 @@ app.get('/', (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-  console.log(db);
-  //req body should be an object
-  let user_info = req.body;
-  let newUser = new User(user_info)
-
+  User.findOne(req.body, (err, docs) => {
+    if (err) {
+      console.log(err);
+      res.json(err);
+    } else if (docs === null) {
+      User.create(req.body, (err, user) => {
+        if (err) {
+          console.log(err);
+          res.json(err);
+        } else {
+          console.log(user);
+          res.json(user);
+        }
+      });
+    }
+  })
 });
