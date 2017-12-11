@@ -3,61 +3,71 @@ import mongodb, { MongoClient } from 'mongodb';
 import mongoose, { Schema } from 'mongoose';
 import bodyParser from 'body-parser';
 
-// mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
-// mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test'
-// , {useMongoClient: true});
-//
-// const dbAccess = mongoose.connection;
-// let userSchema = new Schema({
-//   name: String
-// });
-// let User = mongoose.model('User', userSchema);
-// // let db = dbAccess;
-//
-// dbAccess.on('error', console.error.bind(console, 'connection error:'));
-//
-// dbAccess.once('open', () => {
-//
-//
-//   let server = app.listen(process.env.PORT || 8080, () => {
-//     let port = server.address().port;
-//     console.log("App is running on port", port);
-//   });
-//   // dbAccess.db.collection("users", (err, collection) => {
-//   //   collection.find({}).toArray((err,data) => {
-//   //     console.log(data);
-//   //   })
-//   // });
-//
-//
-//   // })
-//
-// })
-const app = express();
-app.use(bodyParser());
-let db;
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test'
+, {useMongoClient: true});
 
-mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test', (err, database) => {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
+let userSchema = new Schema({
+  name: String,
+});
+let User = mongoose.model('User', userSchema);
 
-  db = database;
-  console.log("Database connection ready");
-  let server = app.listen(process.env.PORT || 8080,() => {
+let animalSchema = new Schema({
+  name: { type: String,
+          // required: true
+        }
+})
+
+let Animal = mongoose.model('Animal', animalSchema);
+
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  let server = app.listen(process.env.PORT || 8080, () => {
     let port = server.address().port;
     console.log("App now running on port", port);
   });
+
+
 });
+// let db = dbAccess;
+
+// username: {type: String},
+// email: {type: String}
+// let User = mongoose.model('users', userSchema);
+
+// let userSchema = new Schema({
+//   sub: {type: String},
+// });
+// let db;
+//
+// let connection = mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test', (err, database) => {
+//   if (err) {
+//     console.log(err);
+//     process.exit(1);
+//   }
+//
+//   db = database;
+//   console.log("Database connection ready");
+//   let server = app.listen(process.env.PORT || 8080,() => {
+//     let port = server.address().port;
+//     console.log("App now running on port", port);
+//   });
+//   let User = connection.model('users',userSchema);
+//   user = new User({sub: 'sub'});
+//
+// });
 
 
+const app = express();
+app.use(bodyParser());
 
 app.get('/testinsert', (req, res) => {
   console.log("on test");
   console.log();
   // console.log(db.collection("users"));
+
   res.send("hi")
 })
 
