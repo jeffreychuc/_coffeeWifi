@@ -68,10 +68,12 @@ export default class Map extends React.Component {
     return (
       <View style={styles.container}>
         {this.renderMapView()}
-        <Button style={styles.logout}
+        <View style={styles.logout}>
+        <Button
           onPress={this.handleLogout}
           title={'Log Out'}
         />
+        </View>
       </View>
     );
   }
@@ -92,9 +94,9 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   logout: {
-    position: 'fixed',
-    right: 50,
-    bottom: 30
+    position: 'absolute',
+    bottom: 30,
+    right: 30
   }
 });
 
@@ -104,3 +106,4 @@ const styles = StyleSheet.create({
 // <Text> {this.state.initialPosition}</Text>
 //         <Text></Text>
 //         <Text> {this.state.lastPosition}</Text>
+
