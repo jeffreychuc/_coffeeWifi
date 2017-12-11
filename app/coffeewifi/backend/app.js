@@ -13,14 +13,6 @@ let userSchema = new Schema({
 });
 let User = mongoose.model('User', userSchema);
 
-let animalSchema = new Schema({
-  name: { type: String,
-          // required: true
-        }
-})
-
-let Animal = mongoose.model('Animal', animalSchema);
-
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
@@ -28,7 +20,6 @@ db.once('open', () => {
     let port = server.address().port;
     console.log("App now running on port", port);
   });
-
 
 });
 
