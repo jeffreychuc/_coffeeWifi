@@ -55,7 +55,7 @@ export default class Map extends React.Component {
             longitude: parsedState.coords.longitude,
             longitudeDelta: 0.005,
             latitudeDelta: 0.006
-          }} followsUserLocation = {true} loadingEnabled= {true} showsUserLocation = {true}
+          }} followsUserLocation = {false} loadingEnabled= {true} showsUserLocation = {true}
         />
       );
     }
