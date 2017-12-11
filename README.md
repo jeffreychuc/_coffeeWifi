@@ -65,3 +65,9 @@ Finding workspaces suitable for your needs as a student is a prevalent issue con
   - Familiarize ourselves with each piece of the MERN stack enough to get things running
   - Set up API endpoints for user auth on heroku
   - Set up OAuth for user login
+  - Set up redux pattern
+  - Integrate map view on react-native
+  - Located API/Website to scrape data for coffee shops/workspaces http://www.factual.com/data/t/places#filters={"$and":[{"country":{"$eq":"US"}},{"region":{"$eq":"CA"}},{"locality":{"$eq":"SAN+FRANCISCO"}}]}&q=coffee+shops
+  - Registered for foursquare API
+  - Registered for google places API
+  - Google radar api could be a source of info as well
