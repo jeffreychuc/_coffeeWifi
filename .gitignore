@@ -51,8 +51,7 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 
-<<<<<<< HEAD
 *.xcodeproj/
 DerivedData/
-=======
->>>>>>> maps
+
+auth0-credentials.js
