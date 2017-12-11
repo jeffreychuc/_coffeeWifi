@@ -31,34 +31,6 @@ db.once('open', () => {
 
 
 });
-// let db = dbAccess;
-
-// username: {type: String},
-// email: {type: String}
-// let User = mongoose.model('users', userSchema);
-
-// let userSchema = new Schema({
-//   sub: {type: String},
-// });
-// let db;
-//
-// let connection = mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test', (err, database) => {
-//   if (err) {
-//     console.log(err);
-//     process.exit(1);
-//   }
-//
-//   db = database;
-//   console.log("Database connection ready");
-//   let server = app.listen(process.env.PORT || 8080,() => {
-//     let port = server.address().port;
-//     console.log("App now running on port", port);
-//   });
-//   let User = connection.model('users',userSchema);
-//   user = new User({sub: 'sub'});
-//
-// });
-
 
 const app = express();
 app.use(bodyParser());
@@ -66,8 +38,6 @@ app.use(bodyParser());
 app.get('/testinsert', (req, res) => {
   console.log("on test");
   console.log();
-  // console.log(db.collection("users"));
-
   res.send("hi")
 })
 
@@ -77,13 +47,8 @@ app.get('/', (req, res) => {
 
 app.post("/users", (req, res) => {
   console.log(db);
-  let newUser = req.body;
-  db.collection("users").insertOne(newUser, (err, doc) => {
-    console.log(doc);
-    if (err) {
-      res.status(500).json(err);
-    } else {
-       res.status(201).json(doc.ops[0]);
-    }
-  })
+  //req body should be an object
+  let user_info = req.body;
+  let newUser = new User(user_info)
+
 });
