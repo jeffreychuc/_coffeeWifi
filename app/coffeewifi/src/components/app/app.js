@@ -17,14 +17,13 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    //setting access token for user if it exists in keychain
-    debugger;
+    //getting access token for user if it exists in keychain
     SInfo.getItem('currentUser', {
       sharedPreferencesName: 'accessToken',
       keychainService: 'com.rootuser.coffeewifi'
       }).then(accessToken => {
         // debugger;
-        console.log(accessToken); //value1
+        console.log(accessToken);
           if (accessToken) {
             this.props.getUserProfile(accessToken)
             .then(currentUserProfile => {
