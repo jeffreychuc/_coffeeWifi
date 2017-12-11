@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
+import MapViewContainer from '../map/mapViewContainer';
 import SInfo from 'react-native-sensitive-info';
 import Auth0 from 'react-native-auth0';
 
 
-var credentials = require('../../auth0-credentials');
+var credentials = require('../../../auth0-credentials');
 const auth0 = new Auth0(credentials);
 
 export default class App extends React.Component {
@@ -16,14 +17,13 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    //setting access token for user if it exists in keychain
-    debugger;
+    //getting access token for user if it exists in keychain
     SInfo.getItem('currentUser', {
       sharedPreferencesName: 'accessToken',
       keychainService: 'com.rootuser.coffeewifi'
       }).then(accessToken => {
         // debugger;
-        console.log(accessToken); //value1
+        console.log(accessToken);
           if (accessToken) {
             this.props.getUserProfile(accessToken)
             .then(currentUserProfile => {
@@ -60,7 +60,7 @@ export default class App extends React.Component {
     );
   }
 
-  render() {
+  renderSplash() {
     let loggedIn = this.props.loggedIn;
     return (
       <View style={styles.container}>
@@ -75,6 +75,15 @@ export default class App extends React.Component {
         <Text> {this.state.currentUserProfile ? JSON.stringify(this.state.currentUserProfile) : false} </Text>
       </View>
     );
+  }
+  render() {
+    let loggedIn = this.props.loggedIn;
+    if (loggedIn) {
+      return <MapViewContainer />;
+    }
+    else  {
+      return this.renderSplash();
+    }
   }
 }
 

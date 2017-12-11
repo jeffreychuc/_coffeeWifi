@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { login, logout, getUserProfile} from '../actions/session_actions';
+import { login, logout, getUserProfile} from '../../actions/session_actions';
 import App from './app';
 
 
