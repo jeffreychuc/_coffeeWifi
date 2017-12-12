@@ -120,15 +120,3 @@ const styles = StyleSheet.create({
     left: 20
   }
 });
-
-
-
-
-// <Text> {this.state.initialPosition}</Text>
-//         <Text></Text>
-//
-
-
-
-// 37.78
-// -122.40

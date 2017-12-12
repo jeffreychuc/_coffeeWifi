@@ -1,4 +1,5 @@
 import React from 'react';
+import Triangle from 'react-native-triangle';
 import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
 
 export default class MapCustomCallout extends React.Component {
@@ -9,7 +10,19 @@ export default class MapCustomCallout extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>WORKS</Text>
+        <View>
+          <View style={styles.mainInfo}>
+            <Text style={{color: 'white'}}>STARBUKUSES</Text>
+          </View>
+        </View>
+        <View style={styles.triangleView}>
+          <Triangle
+            width={30}
+            height={10}
+            color={'#D80016'}
+            direction={'down'}
+          />
+        </View>
       </View>
     );
   }
@@ -17,26 +30,30 @@ export default class MapCustomCallout extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
+    top: -10,
+    right: -3
+  },
+  mainInfo: {
+    position: 'absolute',
+    padding: 10,
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#1b1d1c',
     margin: 10,
-    borderRadius: 100,
-    opacity: 0.8
+    borderRadius: 10,
+    opacity: 0.8,
+    width: 200,
+    height: 150,
+    left: -90,
+    top: -150
   },
-  text: {
+  triangleView: {
+    position: 'absolute',
+    left: 0,
+    top: 10,
+  },
+  triangle: {
+    position: 'absolute',
+    opacity: 0.8
   }
 });
-
-
-
-
-// <Text> {this.state.initialPosition}</Text>
-//         <Text></Text>
-//
-
-
-
-// 37.78
-// -122.40
