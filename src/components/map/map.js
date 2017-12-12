@@ -65,10 +65,11 @@ export default class Map extends React.Component {
             longitude: parsedState.coords.longitude,
             longitudeDelta: 0.005,
             latitudeDelta: 0.006
-          }} followsUserLocation = {false}
-             loadingEnabled= {true}
-             showsUserLocation = {true}
-             mapType = {'mutedStandard'}
+          }} followsUserLocation={false}
+             loadingEnabled={true}
+             showsUserLocation={true}
+             mapType={'mutedStandard'}
+             userLocationAnnotationTitle={''}
         >
           <MapView.Marker
               coordinate={{latitude: 37.785,
