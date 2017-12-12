@@ -55,7 +55,7 @@ export default class Map extends React.Component {
   }
 
   renderMapView() {
-    let parsedState = JSON.parse(this.state.lastPosition);
+    let parsedState = JSON.parse(this.state.initialPosition);
     if (parsedState !== null) {
       console.log('drawing map');
       return (
@@ -83,6 +83,7 @@ export default class Map extends React.Component {
           <MapView.Marker
               coordinate={{latitude: 37.783,
               longitude: -122.403}}
+              onPress={(e) => e.stopPropagation()}
           >
           <MapView.Callout tooltip={true} style={styles.callout}>
               <MapCustomCallout currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: 37.785,
