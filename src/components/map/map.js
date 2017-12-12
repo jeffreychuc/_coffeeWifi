@@ -73,8 +73,18 @@ export default class Map extends React.Component {
           <MapView.Marker
               coordinate={{latitude: 37.785,
               longitude: -122.4064}}
+              onPress={(e) => e.stopPropagation()}
           >
             <MapView.Callout tooltip={true} style={styles.callout}>
+              <MapCustomCallout currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: 37.785,
+              longitude: -122.4064})} />
+            </MapView.Callout>
+          </MapView.Marker>
+          <MapView.Marker
+              coordinate={{latitude: 37.783,
+              longitude: -122.403}}
+          >
+          <MapView.Callout tooltip={true} style={styles.callout}>
               <MapCustomCallout currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: 37.785,
               longitude: -122.4064})} />
             </MapView.Callout>
