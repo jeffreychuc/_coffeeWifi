@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
 import MapViewContainer from '../map/mapViewContainer';
 import SInfo from 'react-native-sensitive-info';
 import Auth0 from 'react-native-auth0';
+import * as SessionAPIUtil from '../../util/session_api_util';
 
 
 var credentials = require('../../../auth0-credentials');
@@ -28,6 +29,8 @@ export default class App extends React.Component {
             this.props.getUserProfile(accessToken)
             .then(currentUserProfile => {
               this.setState({ currentUserProfile: currentUserProfile.currentUserProfile });
+              //SAVE currentUserProfile.currentUserProfile object
+              SessionAPIUtil.saveUserProfile(currentUserProfile.currentUserProfile)
               }
             );
           }
