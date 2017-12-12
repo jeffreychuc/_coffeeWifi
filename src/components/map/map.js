@@ -2,12 +2,14 @@ import React from 'react';
 import SInfo from 'react-native-sensitive-info';
 import MapView from 'react-native-maps';
 import MapCustomCallout from './mapCustomCallout';
+import haversine from 'haversine';
 import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
 
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
+    this.calcDistanceTo = this.calcDistanceTo.bind(this);
     this.state = {
       initialPosition: null,
       lastPosition: null
@@ -44,6 +46,14 @@ export default class Map extends React.Component {
     );
   }
 
+  calcDistanceTo(workSpace)  {
+    let currLat = JSON.parse(this.state.lastPosition).coords.latitude;
+    let currLong = JSON.parse(this.state.lastPosition).coords.longitude;
+    let start = {latitude: currLat, longitude: currLong};
+    let end = {latitude: workSpace.latitude, longitude: workSpace.longitude};
+    return haversine(start, end, {unit: 'mile'});
+  }
+
   renderMapView() {
     let parsedState = JSON.parse(this.state.lastPosition);
     if (parsedState !== null) {
@@ -65,7 +75,8 @@ export default class Map extends React.Component {
               longitude: -122.4064}}
           >
             <MapView.Callout tooltip={true} style={styles.callout}>
-              <MapCustomCallout workSpace={false} />
+              <MapCustomCallout currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: 37.785,
+              longitude: -122.4064})} />
             </MapView.Callout>
           </MapView.Marker>
         </MapView>
