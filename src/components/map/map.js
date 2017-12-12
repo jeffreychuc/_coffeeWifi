@@ -1,6 +1,7 @@
 import React from 'react';
 import SInfo from 'react-native-sensitive-info';
 import MapView from 'react-native-maps';
+import MapCustomCallout from './mapCustomCallout';
 import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
 
 export default class Map extends React.Component {
@@ -27,7 +28,7 @@ export default class Map extends React.Component {
       console.log('setting state to, ', { lastPosition });
       this.setState({lastPosition});
     }, (error) => alert(error.message),
-    {enableHighAccuracy: false, timeout: 10000, maximumAge: 1000});
+    {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
   }
 
   componentWillUnmount() {
@@ -44,7 +45,6 @@ export default class Map extends React.Component {
   }
 
   renderMapView() {
-    debugger;
     let parsedState = JSON.parse(this.state.lastPosition);
     if (parsedState !== null) {
       console.log('drawing map');
@@ -55,24 +55,40 @@ export default class Map extends React.Component {
             longitude: parsedState.coords.longitude,
             longitudeDelta: 0.005,
             latitudeDelta: 0.006
-          }} followsUserLocation = {false} loadingEnabled= {true} showsUserLocation = {true}
-        />
+          }} followsUserLocation = {false}
+             loadingEnabled= {true}
+             showsUserLocation = {true}
+             mapType = {'mutedStandard'}
+        >
+          <MapView.Marker
+              coordinate={{latitude: 37.785,
+              longitude: -122.4064}}
+          >
+            <MapView.Callout tooltip={true} style={styles.callout}>
+              <MapCustomCallout workSpace={false} />
+            </MapView.Callout>
+          </MapView.Marker>
+        </MapView>
       );
     }
     else  {
       return null;
     }
   }
-
+  // 37.7988539,-122.4016086 //fora thinkspace
   render() {
+    let parsedState = JSON.parse(this.state.lastPosition);
     return (
       <View style={styles.container}>
         {this.renderMapView()}
         <View style={styles.logout}>
-        <Button
-          onPress={this.handleLogout}
-          title={'Log Out'}
-        />
+          <Button
+            onPress={this.handleLogout}
+            title={'Log Out'}
+          />
+        </View>
+        <View style={styles.debug}>
+          <Text> {this.state.lastPosition}</Text>
         </View>
       </View>
     );
@@ -97,6 +113,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 30,
     right: 30
+  },
+  debug : {
+    position: 'absolute',
+    top: 30,
+    left: 20
   }
 });
 
@@ -105,5 +126,9 @@ const styles = StyleSheet.create({
 
 // <Text> {this.state.initialPosition}</Text>
 //         <Text></Text>
-//         <Text> {this.state.lastPosition}</Text>
+//
 
+
+
+// 37.78
+// -122.40
