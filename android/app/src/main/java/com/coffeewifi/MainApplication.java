@@ -3,6 +3,7 @@ package com.coffeewifi;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.sentry.RNSentryPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.auth0.react.A0Auth0Package;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSentryPackage(MainApplication.this),
             new MapsPackage(),
             new A0Auth0Package(),
             new RNSensitiveInfoPackage()
