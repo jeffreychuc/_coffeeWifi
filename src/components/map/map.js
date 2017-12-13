@@ -5,6 +5,8 @@ import MapCustomCallout from './mapCustomCallout';
 import MenuIconContainer from '../menuIcon/menuIconContainer';
 import SearchFloatContainer from '../searchFloat/searchFloatContainer';
 import FilterModalContainer from '../filterModal/filterModalContainer';
+import * as Animatable from 'react-native-animatable';
+// import FadeInOut from '../fade/fade';
 import haversine from 'haversine';
 import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
 
@@ -13,9 +15,12 @@ export default class Map extends React.Component {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
     this.calcDistanceTo = this.calcDistanceTo.bind(this);
+    this.renderSplashImage = this.renderSplashImage.bind(this);
     this.state = {
       initialPosition: null,
-      lastPosition: null
+      lastPosition: null,
+      filterViewStatus: false,
+      loading: true
     };
   }
 
@@ -34,6 +39,7 @@ export default class Map extends React.Component {
       this.setState({lastPosition});
     }, (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
+    setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(500).then(() => this.setState({loading: false})) : null;}, 1800);
   }
 
   componentWillUnmount() {
@@ -106,22 +112,41 @@ export default class Map extends React.Component {
       return null;
     }
   }
+
+  renderFilterModal() {
+    //need to handle animation out somehow
+    if (this.props.filterViewStatus)  {
+      return (
+        <Animatable.View animate={'zoomOut'} delay={450} style={styles.filterModal}>
+          <FilterModalContainer />
+        </Animatable.View>
+      );
+    }
+  }
+
+  renderSplashImage() {
+    return this.state.loading ?
+        (<Animatable.View animate={'fadeOut'} ref='splash' useNativeDriver style={styles.splash}>
+          <Text style={{color: 'white'}}> Loading... </Text>
+         </Animatable.View>
+    ) : null;
+  }
+
   // 37.7988539,-122.4016086 //fora thinkspace
   render() {
     let parsedState = JSON.parse(this.state.lastPosition);
     return (
       <View style={styles.container}>
         {this.renderMapView()}
-        <View style={styles.filterModal}>
-          <FilterModalContainer />
-        </View>
+        {this.renderFilterModal()}
         <View style={styles.debug}>
           <Text> {this.state.lastPosition}</Text>
         </View>
         <SearchFloatContainer />
         <View style={styles.logout}>
-            <MenuIconContainer />
+          <MenuIconContainer />
         </View>
+        {this.renderSplashImage()}
       </View>
     );
   }
@@ -158,6 +183,18 @@ const styles = StyleSheet.create({
   filterModal: {
     position: 'absolute',
     top: 20,
-    left: 0
-  }
+    left: 0,
+    justifyContent: 'center'
+  },
+  splash: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
+  },
 });

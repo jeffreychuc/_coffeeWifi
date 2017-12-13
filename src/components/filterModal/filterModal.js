@@ -9,10 +9,13 @@ export default class FilterModal extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderModal = this.renderModal.bind(this);
+    this.state = {filterViewStatus: false};
   }
 
   componentWillReceiveProps(nextProps)  {
-
+    if (!isEqual(this.state, nextProps))  {
+      this.setState(merge({}, this.state, nextProps));
+    }
   }
 
   handleSubmit(e, apply) {
@@ -20,8 +23,8 @@ export default class FilterModal extends React.Component {
     if (apply)  {
       //do shit
     }
+    console.log('wtf');
     this.props.setFilterView(false);
-
   }
 
   renderModal()  {
