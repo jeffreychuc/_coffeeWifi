@@ -6,15 +6,14 @@ export const setFilterStatus = (filterIconStatus) => ({
   filterIconStatus
 });
 
-export const setFilterIcon = (status) => dispatch => (
-  dispatch(setFilterStatus(status))
-);
-
-
 export const setFilterViewStatus = (filterViewStatus) => ({
   type: FILTER_VIEW_STATUS,
   filterViewStatus
 });
+
+export const setFilterIcon = (status) => dispatch => (
+  dispatch(setFilterStatus(status))
+);
 
 export const setFilterView = (status) => dispatch => (
   dispatch(setFilterViewStatus(status))

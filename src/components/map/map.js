@@ -4,6 +4,7 @@ import MapView from 'react-native-maps';
 import MapCustomCallout from './mapCustomCallout';
 import MenuIconContainer from '../menuIcon/menuIconContainer';
 import SearchFloatContainer from '../searchFloat/searchFloatContainer';
+import FilterModalContainer from '../filterModal/filterModalContainer';
 import haversine from 'haversine';
 import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
 
@@ -111,6 +112,9 @@ export default class Map extends React.Component {
     return (
       <View style={styles.container}>
         {this.renderMapView()}
+        <View style={styles.filterModal}>
+          <FilterModalContainer />
+        </View>
         <View style={styles.debug}>
           <Text> {this.state.lastPosition}</Text>
         </View>
@@ -150,5 +154,10 @@ const styles = StyleSheet.create({
   searchFloat: {
     width: 100,
     top: 20
+  },
+  filterModal: {
+    position: 'absolute',
+    top: 20,
+    left: 0
   }
 });

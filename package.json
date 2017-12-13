@@ -21,6 +21,7 @@
     "native-base": "^2.3.5",
     "react": "^16.2.0",
     "react-native": "^0.51.0",
+    "react-native-animatable": "^1.2.4",
     "react-native-auth0": "^1.2.1",
     "react-native-maps": "^0.18.3",
     "react-native-sensitive-info": "^5.1.0",
