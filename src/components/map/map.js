@@ -2,6 +2,11 @@ import React from 'react';
 import SInfo from 'react-native-sensitive-info';
 import MapView from 'react-native-maps';
 import MapCustomCallout from './mapCustomCallout';
+import MenuIconContainer from '../menuIcon/menuIconContainer';
+import SearchFloatContainer from '../searchFloat/searchFloatContainer';
+import FilterModalContainer from '../filterModal/filterModalContainer';
+import * as Animatable from 'react-native-animatable';
+// import FadeInOut from '../fade/fade';
 import haversine from 'haversine';
 import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
 
@@ -10,9 +15,12 @@ export default class Map extends React.Component {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
     this.calcDistanceTo = this.calcDistanceTo.bind(this);
+    this.renderSplashImage = this.renderSplashImage.bind(this);
     this.state = {
       initialPosition: null,
-      lastPosition: null
+      lastPosition: null,
+      loading: true,
+      filterModalDelay: false
     };
   }
 
@@ -31,6 +39,16 @@ export default class Map extends React.Component {
       this.setState({lastPosition});
     }, (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
+    setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(300).then(() => this.setState({loading: false})) : null;}, 350);
+  }
+
+  componentWillReceiveProps(nextProps)  {
+    if (nextProps.filterViewStatus)  {
+      this.setState({filterModalDelay: true});
+    }
+    else  {
+      setTimeout(() => this.setState({filterModalDelay: false}), 600);
+    }
   }
 
   componentWillUnmount() {
@@ -47,11 +65,16 @@ export default class Map extends React.Component {
   }
 
   calcDistanceTo(workSpace)  {
-    let currLat = JSON.parse(this.state.lastPosition).coords.latitude;
-    let currLong = JSON.parse(this.state.lastPosition).coords.longitude;
-    let start = {latitude: currLat, longitude: currLong};
-    let end = {latitude: workSpace.latitude, longitude: workSpace.longitude};
-    return haversine(start, end, {unit: 'mile'});
+    if (this.state.lastPosition) {
+      let currLat = JSON.parse(this.state.lastPosition).coords.latitude;
+      let currLong = JSON.parse(this.state.lastPosition).coords.longitude;
+      let start = {latitude: currLat, longitude: currLong};
+      let end = {latitude: workSpace.latitude, longitude: workSpace.longitude};
+      return haversine(start, end, {unit: 'mile'});
+    }
+    else {
+      return null;
+    }
   }
 
   renderMapView() {
@@ -98,21 +121,39 @@ export default class Map extends React.Component {
       return null;
     }
   }
+
+  renderFilterModal() {
+    //need to handle animation out somehow
+    return this.state.filterModalDelay ? (
+      <Animatable.View animation={this.props.filterViewStatus ?  'fadeIn' : 'fadeOut' } duration={300} style={styles.filterModal}>
+        <FilterModalContainer />
+      </Animatable.View>
+    ) : null;
+  }
+
+  renderSplashImage() {
+    return this.state.loading ?
+        (<Animatable.View animate={'fadeOut'} ref='splash' useNativeDriver style={styles.splash}>
+          <Text style={{color: 'white'}}> Loading... </Text>
+         </Animatable.View>
+    ) : null;
+  }
+
   // 37.7988539,-122.4016086 //fora thinkspace
   render() {
     let parsedState = JSON.parse(this.state.lastPosition);
     return (
       <View style={styles.container}>
         {this.renderMapView()}
-        <View style={styles.logout}>
-          <Button
-            onPress={this.handleLogout}
-            title={'Log Out'}
-          />
-        </View>
+        {this.renderFilterModal()}
         <View style={styles.debug}>
           <Text> {this.state.lastPosition}</Text>
         </View>
+        <SearchFloatContainer />
+        <View style={styles.logout}>
+          <MenuIconContainer />
+        </View>
+        {this.renderSplashImage()}
       </View>
     );
   }
@@ -134,12 +175,33 @@ const styles = StyleSheet.create({
   },
   logout: {
     position: 'absolute',
-    bottom: 30,
-    right: 30
+    bottom: 0,
+    right: 0
   },
   debug : {
     position: 'absolute',
-    top: 30,
+    top: 500,
     left: 20
-  }
+  },
+  searchFloat: {
+    width: 100,
+    top: 20
+  },
+  filterModal: {
+    position: 'absolute',
+    top: 20,
+    left: 0,
+    justifyContent: 'center'
+  },
+  splash: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
+  },
 });
