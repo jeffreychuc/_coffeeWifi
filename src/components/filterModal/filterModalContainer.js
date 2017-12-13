@@ -4,8 +4,6 @@ import FilterModal from './filterModal';
 
 
 const mapStateToProps = (state) => {
-  debugger;
-  console.log('wtf');
   return {
     filterViewStatus: state.ui.filterViewStatus,
   };

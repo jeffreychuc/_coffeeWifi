@@ -19,8 +19,8 @@ export default class Map extends React.Component {
     this.state = {
       initialPosition: null,
       lastPosition: null,
-      filterViewStatus: false,
-      loading: true
+      loading: true,
+      filterModalDelay: true
     };
   }
 
@@ -39,7 +39,16 @@ export default class Map extends React.Component {
       this.setState({lastPosition});
     }, (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
-    setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(500).then(() => this.setState({loading: false})) : null;}, 1800);
+    setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(300).then(() => this.setState({loading: false})) : null;}, 350);
+  }
+
+  componentWillReceiveProps(nextProps)  {
+    if (nextProps.filterViewStatus)  {
+      this.setState({filterModalDelay: true});
+    }
+    else  {
+      setTimeout(() => this.setState({filterModalDelay: false}), 600);
+    }
   }
 
   componentWillUnmount() {
@@ -115,13 +124,11 @@ export default class Map extends React.Component {
 
   renderFilterModal() {
     //need to handle animation out somehow
-    if (this.props.filterViewStatus)  {
-      return (
-        <Animatable.View animate={'zoomOut'} delay={450} style={styles.filterModal}>
-          <FilterModalContainer />
-        </Animatable.View>
-      );
-    }
+    return this.state.filterModalDelay ? (
+      <Animatable.View animation={this.props.filterViewStatus ?  'fadeIn' : 'fadeOut' } duration={300} style={styles.filterModal}>
+        <FilterModalContainer />
+      </Animatable.View>
+    ) : null;
   }
 
   renderSplashImage() {

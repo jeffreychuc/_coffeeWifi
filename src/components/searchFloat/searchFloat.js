@@ -9,12 +9,12 @@ export default class SearchFloat extends React.Component {
   constructor(props) {
     super(props);
     this.handleFilter = this.handleFilter.bind(this);
-    debugger;
+
     this.state = _initialUIState;
   }
 
   componentWillReceiveProps(nextProps)  {
-    debugger;
+
     console.log('nextProps', nextProps);
     if (!isEqual(this.state, nextProps))  {
       this.setState(merge({}, this.state, nextProps));

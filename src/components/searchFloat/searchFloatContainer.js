@@ -4,8 +4,6 @@ import SearchFloat from './searchFloat';
 
 
 const mapStateToProps = (state) => {
-  debugger;
-  console.log('wtf');
   return {
     filterIconStatus: state.ui.filterIconStatus,
     filterViewStatus: state.ui.filterViewStatus,
