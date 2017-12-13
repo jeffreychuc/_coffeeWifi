@@ -20,7 +20,7 @@ export default class Map extends React.Component {
       initialPosition: null,
       lastPosition: null,
       loading: true,
-      filterModalDelay: true
+      filterModalDelay: false
     };
   }
 
