@@ -2,6 +2,8 @@ import React from 'react';
 import SInfo from 'react-native-sensitive-info';
 import MapView from 'react-native-maps';
 import MapCustomCallout from './mapCustomCallout';
+import MenuIconContainer from '../menuIcon/menuIconContainer';
+import SearchFloatContainer from '../searchFloat/searchFloatContainer';
 import haversine from 'haversine';
 import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
 
@@ -47,11 +49,16 @@ export default class Map extends React.Component {
   }
 
   calcDistanceTo(workSpace)  {
-    let currLat = JSON.parse(this.state.lastPosition).coords.latitude;
-    let currLong = JSON.parse(this.state.lastPosition).coords.longitude;
-    let start = {latitude: currLat, longitude: currLong};
-    let end = {latitude: workSpace.latitude, longitude: workSpace.longitude};
-    return haversine(start, end, {unit: 'mile'});
+    if (this.state.lastPosition) {
+      let currLat = JSON.parse(this.state.lastPosition).coords.latitude;
+      let currLong = JSON.parse(this.state.lastPosition).coords.longitude;
+      let start = {latitude: currLat, longitude: currLong};
+      let end = {latitude: workSpace.latitude, longitude: workSpace.longitude};
+      return haversine(start, end, {unit: 'mile'});
+    }
+    else {
+      return null;
+    }
   }
 
   renderMapView() {
@@ -104,14 +111,12 @@ export default class Map extends React.Component {
     return (
       <View style={styles.container}>
         {this.renderMapView()}
-        <View style={styles.logout}>
-          <Button
-            onPress={this.handleLogout}
-            title={'Log Out'}
-          />
-        </View>
         <View style={styles.debug}>
           <Text> {this.state.lastPosition}</Text>
+        </View>
+        <SearchFloatContainer />
+        <View style={styles.logout}>
+            <MenuIconContainer />
         </View>
       </View>
     );
@@ -134,12 +139,16 @@ const styles = StyleSheet.create({
   },
   logout: {
     position: 'absolute',
-    bottom: 30,
-    right: 30
+    bottom: 0,
+    right: 0
   },
   debug : {
     position: 'absolute',
-    top: 30,
+    top: 500,
     left: 20
+  },
+  searchFloat: {
+    width: 100,
+    top: 20
   }
 });
