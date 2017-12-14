@@ -81,6 +81,7 @@ export default class App extends React.Component {
   }
   render() {
     let loggedIn = this.props.loggedIn;
+    // let loggedIn = true;
     if (loggedIn) {
       return <MapViewContainer />;
     }
