@@ -29,3 +29,44 @@ export const fetchLocalWorkspaces = (location, radius) => (
     }
    });
 );
+
+export const fetchUserReviews = (user) => (
+  fetch(`https://coffeewifi.herokuapp.com/user/${user._id}/reviews`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+   });
+);
+
+export const fetchBusinessReviews = (business) => (
+  fetch(`https://coffeewifi.herokuapp.com/business/${business._id}/reviews`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+   });
+);
+
+
+export const postBusinessReview = (business, user, review) => (
+  fetch(`https://coffeewifi.herokuapp.com/business/${business._id}/reviews`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+                            user: {
+                                    id: user._id,
+                                    name: user.name
+                                  },
+                            review: {
+                                      content: review.content,
+                                      starts: review.stars
+                                    }
+                        })
+   });
+);
