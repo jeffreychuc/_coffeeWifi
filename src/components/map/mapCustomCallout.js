@@ -13,7 +13,7 @@ export default class MapCustomCallout extends React.Component {
         <View>
           <View style={styles.mainInfo}>
             <Text style={{color: 'white'}}>STARBUKUSES</Text>
-            <Text style={{color: 'white'}}>{this.props.distanceTo.toFixed(2)} Miles</Text>
+            <Text style={{color: 'white'}}>{this.props.distanceTo ? this.props.distanceTo.toFixed(2) : null } Miles</Text>
           </View>
         </View>
         <View style={styles.triangleView}>
@@ -32,8 +32,9 @@ export default class MapCustomCallout extends React.Component {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: -10,
-    right: -3
+    bottom: -140,
+    right: 115,
+    zIndex: 0
   },
   mainInfo: {
     position: 'absolute',

@@ -5,10 +5,11 @@ import MapCustomCallout from './mapCustomCallout';
 import MenuIconContainer from '../menuIcon/menuIconContainer';
 import SearchFloatContainer from '../searchFloat/searchFloatContainer';
 import FilterModalContainer from '../filterModal/filterModalContainer';
+import DrawerContainer from '../drawer/drawerContainer';
 import * as Animatable from 'react-native-animatable';
-// import FadeInOut from '../fade/fade';
+import SlidingUpPanel from 'rn-sliding-up-panel';
 import haversine from 'haversine';
-import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, Platform, Alert, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
 
 export default class Map extends React.Component {
   constructor(props) {
@@ -77,6 +78,9 @@ export default class Map extends React.Component {
     }
   }
 
+  handleDrawer()  {
+    console.log('wtf');
+  }
   renderMapView() {
     let parsedState = JSON.parse(this.state.initialPosition);
     if (parsedState !== null) {
@@ -97,21 +101,18 @@ export default class Map extends React.Component {
           <MapView.Marker
               coordinate={{latitude: 37.785,
               longitude: -122.4064}}
+              onCalloutPress={() => this.handleDrawer()}
               onPress={(e) => e.stopPropagation()}
           >
             <MapView.Callout tooltip={true} style={styles.callout}>
-              <MapCustomCallout currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: 37.785,
-              longitude: -122.4064})} />
-            </MapView.Callout>
-          </MapView.Marker>
-          <MapView.Marker
-              coordinate={{latitude: 37.783,
-              longitude: -122.403}}
-              onPress={(e) => e.stopPropagation()}
-          >
-          <MapView.Callout tooltip={true} style={styles.callout}>
-              <MapCustomCallout currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: 37.785,
-              longitude: -122.4064})} />
+              <TouchableWithoutFeedback style={{ position:'absolute',left:-75, bottom: 0, backgroundColor: 'red',height: 150, width: 200}}>
+                <View>
+                  <MapCustomCallout style={{zIndex: 10}}currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: 37.785,
+                  longitude: -122.4064})} />
+                </View>
+              </TouchableWithoutFeedback>
+                {/* <Text>wtf</Text> */}
+              {/* </View> */}
             </MapView.Callout>
           </MapView.Marker>
         </MapView>
@@ -153,6 +154,7 @@ export default class Map extends React.Component {
         <View style={styles.logout}>
           <MenuIconContainer />
         </View>
+        <DrawerContainer />
         {this.renderSplashImage()}
       </View>
     );
@@ -172,6 +174,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
+    zIndex: -1
   },
   logout: {
     position: 'absolute',
@@ -204,4 +207,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1
   },
+  callout: {
+    height: 150,
+    width: 200
+  }
 });
