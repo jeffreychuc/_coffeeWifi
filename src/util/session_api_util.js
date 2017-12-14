@@ -17,14 +17,3 @@ export const logout = () => (
 export const getUserProfile = (accessToken) => (
   auth0.auth.userInfo({'token': accessToken})
 );
-
-export const saveUserProfile = (currentUserProfile) => (
-  fetch('https://coffeewifi.herokuapp.com/users', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: currentUserProfile,
-   });
-);
