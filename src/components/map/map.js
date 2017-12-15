@@ -17,6 +17,7 @@ export default class Map extends React.Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.calcDistanceTo = this.calcDistanceTo.bind(this);
     this.renderSplashImage = this.renderSplashImage.bind(this);
+    this.handleDrawer = this.handleDrawer.bind(this);
     this.state = {
       initialPosition: null,
       lastPosition: null,
@@ -78,8 +79,10 @@ export default class Map extends React.Component {
     }
   }
 
-  handleDrawer()  {
-    console.log('wtf');
+  handleDrawer(e)  {
+    e.stopPropagation();
+    console.log('lol');
+    this.props.setDrawerView(true);
   }
   renderMapView() {
     let parsedState = JSON.parse(this.state.initialPosition);
@@ -101,7 +104,7 @@ export default class Map extends React.Component {
           <MapView.Marker
               coordinate={{latitude: 37.785,
               longitude: -122.4064}}
-              onCalloutPress={() => this.handleDrawer()}
+              onCalloutPress={(e) => this.handleDrawer(e)}
               onPress={(e) => e.stopPropagation()}
           >
             <MapView.Callout tooltip={true} style={styles.callout}>
@@ -111,8 +114,6 @@ export default class Map extends React.Component {
                   longitude: -122.4064})} />
                 </View>
               </TouchableWithoutFeedback>
-                {/* <Text>wtf</Text> */}
-              {/* </View> */}
             </MapView.Callout>
           </MapView.Marker>
         </MapView>

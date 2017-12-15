@@ -1,29 +1,33 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
+import { Container, Header, Item, Input, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import SlidingUpPanel from 'rn-sliding-up-panel';
+import Icon from 'react-native-vector-icons/Ionicons';
+import DrawerTabs from './drawerTabs';
+
 
 export default class drawer extends React.Component {
   constructor(props) {
     super(props);
   }
 
-
   render() {
+    console.log('in render drawer view, drawer view is currently, ', this.props.drawerViewStatus);
     return (
-        <View>
-          <SlidingUpPanel
-          visible={this.props.drawerViewStatus}
-          style={styles.container}
-          onRequestClose={() => this.props.setDrawerView(false)}>
-            <View >
-              <Text>Here is the content inside panel</Text>
-              <Button title='hide' onPress={() => this._panel.transitionTo(0)} />
-            </View>
-          </SlidingUpPanel>
+      <SlidingUpPanel
+      visible={this.props.drawerViewStatus}
+      height={800}
+      draggableRange={{top: 640, bottom: 0}}
+      onRequestClose={() => this.props.setDrawerView(false)}>
+        <View style={styles.drawerInternal}>
+          <View style={{padding: 20, flex: 1}}>
+            <DrawerTabs />
+            <Text> TETSTINGSDIOFJDSLK </Text>
+          </View>
         </View>
+      </SlidingUpPanel>
     );
   }
 }
@@ -31,8 +35,21 @@ export default class drawer extends React.Component {
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  drawerInternal: {
+    height: 650,
+    backgroundColor: 'white',
+    borderRadius: 10
+  },
+  tabContainer: {
+    height: 650,
+    width: 300,
+    backgroundColor: 'black',
+    zIndex: 500
+  },
+  iconSize: {
+    fontSize: 25
   }
 };
