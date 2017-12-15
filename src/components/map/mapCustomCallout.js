@@ -12,7 +12,7 @@ export default class MapCustomCallout extends React.Component {
       <View style={styles.container}>
         <View>
           <View style={styles.mainInfo}>
-            <Text style={{color: 'white'}}>STARBUKUSES</Text>
+            <Text style={{color: 'white'}}>{this.props.name}</Text>
             <Text style={{color: 'white'}}>{this.props.distanceTo ? this.props.distanceTo.toFixed(2) : null } Miles</Text>
           </View>
         </View>

@@ -6,7 +6,7 @@ export const saveUserProfile = (currentUserProfile) => (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ sub: currentUserProfile.sub })
-   });
+   })
 );
 
 export const filterWorkspaces = (filter) => (
@@ -17,7 +17,7 @@ export const filterWorkspaces = (filter) => (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ filter })
-   });
+   })
 );
 
 export const fetchLocalWorkspaces = (location, radius) => (
@@ -27,7 +27,7 @@ export const fetchLocalWorkspaces = (location, radius) => (
       Accept: 'application/json',
       'Content-Type': 'application/json',
     }
-   });
+   })
 );
 
 export const fetchUserReviews = (user) => (
@@ -37,7 +37,7 @@ export const fetchUserReviews = (user) => (
       Accept: 'application/json',
       'Content-Type': 'application/json',
     }
-   });
+   })
 );
 
 export const fetchBusinessReviews = (business) => (
@@ -47,7 +47,7 @@ export const fetchBusinessReviews = (business) => (
       Accept: 'application/json',
       'Content-Type': 'application/json',
     }
-   });
+   })
 );
 
 
@@ -68,5 +68,5 @@ export const postBusinessReview = (business, user, review) => (
                                       starts: review.stars
                                     }
                         })
-   });
+   })
 );

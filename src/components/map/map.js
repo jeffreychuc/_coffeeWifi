@@ -9,6 +9,8 @@ import DrawerContainer from '../drawer/drawerContainer';
 import * as Animatable from 'react-native-animatable';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import haversine from 'haversine';
+import shortid from 'shortid';
+// import { fetchLocalWorkspaces } from '../../util/db_api_util';
 import { StyleSheet, Text, View, Button, Platform, Alert, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
 
 export default class Map extends React.Component {
@@ -22,7 +24,8 @@ export default class Map extends React.Component {
       initialPosition: null,
       lastPosition: null,
       loading: true,
-      filterModalDelay: false
+      filterModalDelay: false,
+      currentRegion: null
     };
   }
 
@@ -84,8 +87,26 @@ export default class Map extends React.Component {
     console.log('lol');
     this.props.setDrawerView(true);
   }
+
+  // getWorkspaces() {
+  //   let currentWorkspaces = fetchLocalWorkspaces();
+  // }
+
   renderMapView() {
     let parsedState = JSON.parse(this.state.initialPosition);
+
+    let testData =
+    [{"_id": '1', "name": 'Starbucks1', "loc": [-122.4062, 37.78465], "reviews": [1,2,3,4,5], "outlets": 5 },
+    {"_id": '2', "name": 'Starbucks2', "loc": [-122.40625, 37.78465], "reviews": [1,2,3,4,5], "outlets": 5 },
+    {"_id": '3', "name": 'Starbucks3', "loc": [-122.4065, 37.78465], "reviews": [1,2,3,4,5], "outlets": 5 },
+    {"_id": '4', "name": 'Starbucks4', "loc": [-122.40625, 37.7865], "reviews": [1,2,3,4,5], "outlets": 5 },
+    {"_id": '5', "name": 'Starbucks5', "loc": [-122.40625, 37.465], "reviews": [1,2,3,4,5], "outlets": 5 },
+    {"_id": '6', "name": 'Starbucks6', "loc": [-122.40625, 37.78465], "reviews": [1,2,3,4,5], "outlets": 5 },
+    {"_id": '7', "name": 'Starbucks7', "loc": [-122.4062, 37.7845], "reviews": [1,2,3,4,5], "outlets": 5 },
+    {"_id": '8', "name": 'Starbucks8', "loc": [-122.4625, 37.465], "reviews": [1,2,3,4,5], "outlets": 5 },
+    {"_id": '9', "name": 'Starbucks9', "loc": [-122.4065, 37.8465], "reviews": [1,2,3,4,5], "outlets": 5 },
+    {"_id": '10', "name": 'Starbucks10', "loc": [-122.4062, 37.7465], "reviews": [1,2,3,4,5], "outlets": 5 }];
+
     if (parsedState !== null) {
       console.log('drawing map');
       return (
@@ -93,29 +114,37 @@ export default class Map extends React.Component {
           initialRegion = {{
             latitude: parsedState.coords.latitude,
             longitude: parsedState.coords.longitude,
-            longitudeDelta: 0.005,
-            latitudeDelta: 0.006
+            longitudeDelta: 0.01,
+            latitudeDelta: 0.01
           }} followsUserLocation={false}
              loadingEnabled={true}
              showsUserLocation={true}
              mapType={'mutedStandard'}
              userLocationAnnotationTitle={''}
+            //  onRegionChange={(region) => {this.setState({currentRegion: region}); console.log(this.state);}}
         >
-          <MapView.Marker
-              coordinate={{latitude: 37.785,
-              longitude: -122.4064}}
+          {testData.map(workspace => {
+            console.log(workspace.loc[1], workspace.loc[0]);
+            return (
+            <MapView.Marker
+              coordinate={{
+              latitude: workspace.loc[1],
+              longitude: workspace.loc[0]}}
               onCalloutPress={(e) => this.handleDrawer(e)}
-              onPress={(e) => e.stopPropagation()}
-          >
-            <MapView.Callout tooltip={true} style={styles.callout}>
-              <TouchableWithoutFeedback style={{ position:'absolute',left:-75, bottom: 0, backgroundColor: 'red',height: 150, width: 200}}>
-                <View>
-                  <MapCustomCallout style={{zIndex: 10}}currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: 37.785,
-                  longitude: -122.4064})} />
-                </View>
-              </TouchableWithoutFeedback>
-            </MapView.Callout>
-          </MapView.Marker>
+              onPress={(e) => {e.stopPropagation(); this.props.setCurrentSpaceView(workspace._id);}}
+              key={shortid.generate()}
+            >
+              <MapView.Callout tooltip={true} style={styles.callout}>
+                <TouchableWithoutFeedback style={{ position:'absolute',left:-75, bottom: 0, backgroundColor: 'red',height: 150, width: 200}}>
+                  <View>
+                    <MapCustomCallout name={workspace.name} style={{zIndex: 10}}currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: workspace.loc[1],
+                    longitude: workspace.loc[0]})} />
+                  </View>
+                </TouchableWithoutFeedback>
+              </MapView.Callout>
+            </MapView.Marker>
+            );
+          })}
         </MapView>
       );
     }

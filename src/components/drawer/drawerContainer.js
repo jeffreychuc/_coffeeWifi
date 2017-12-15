@@ -6,6 +6,7 @@ import Drawer from './drawer';
 const mapStateToProps = (state) => {
   return {
     drawerViewStatus: state.ui.drawerViewStatus,
+    currentSpaceID: state.ui.currentSpaceID
   };
 };
 

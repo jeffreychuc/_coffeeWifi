@@ -15,10 +15,11 @@ export default class Orders extends React.Component {
   }
 
   render() {
+    console.log('orders', this.props.currentSpaceID);
     return (
       <View style={{backgroundColor: 'white', flex: 1}}>
         <View style={{padding: 5, paddingTop: 10}}>
-          <Text> Stats </Text>
+          <Text> {this.props.currentSpaceID} </Text>
         </View>
       </View>
     );

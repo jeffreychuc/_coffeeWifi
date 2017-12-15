@@ -23,6 +23,7 @@
     "react-native": "^0.51.0",
     "react-native-animatable": "^1.2.4",
     "react-native-auth0": "^1.2.1",
+    "react-native-dismiss-keyboard": "^1.0.0",
     "react-native-maps": "^0.18.3",
     "react-native-sensitive-info": "^5.1.0",
     "react-native-sentry": "^0.31.0",
@@ -34,6 +35,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "rn-sliding-up-panel": "^1.1.7"
+    "rn-sliding-up-panel": "^1.1.7",
+    "shortid": "^2.2.8"
   }
 }

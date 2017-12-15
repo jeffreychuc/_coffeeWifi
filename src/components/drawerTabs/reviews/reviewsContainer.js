@@ -4,6 +4,7 @@ import Reviews from './reviews';
 
 const mapStateToProps = (state) => {
   return {
+    currentSpaceID: state.ui.currentSpaceID
   };
 };
 
@@ -13,4 +14,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, null)(Reviews);
+export default connect(mapStateToProps, null)(Reviews);

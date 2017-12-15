@@ -5,6 +5,7 @@ import { _initialUIState } from '../../reducers/ui';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 
+
 export default class SearchFloat extends React.Component {
   constructor(props) {
     super(props);
@@ -60,13 +61,14 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 1, width: 1 },
   },
   searchFloat: {
-    width: 290,
+    width: 260,
     backgroundColor: 'white',
     borderRadius: 3,
     fontSize: 13
   },
   searchFloatView: {
     height: 20,
+    width: 290
   },
 });
 
