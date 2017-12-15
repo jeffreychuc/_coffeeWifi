@@ -39,7 +39,6 @@ export default class App extends React.Component {
 
   handleLogin() {
     this.props.login().then(action => {
-      // this.setState({currentUser :  action.currentUser});
       SInfo.setItem('currentUser', action.currentUser.accessToken, {
         sharedPreferencesName: 'accessToken',
         keychainService: 'com.rootuser.coffeewifi'
