@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 
 
-export default class Orders extends React.Component {
+export default class Status extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Stats',
     tabBarIcon: (<Icon name='ios-stats-outline' size={30}/> )

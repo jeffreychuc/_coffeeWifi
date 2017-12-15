@@ -24,7 +24,6 @@ export default class drawer extends React.Component {
         <View style={styles.drawerInternal}>
           <View style={{padding: 20, flex: 1}}>
             <DrawerTabs />
-            <Text> TETSTINGSDIOFJDSLK </Text>
           </View>
         </View>
       </SlidingUpPanel>

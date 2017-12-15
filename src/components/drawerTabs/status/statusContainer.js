@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Stats from './stats';
+import Status from './status';
 
 
 const mapStateToProps = (state) => {
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, null)(Stats);
+export default connect(mapStateToProps, null)(Status);
