@@ -4,41 +4,41 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 
 
-export default class Reviews extends React.Component {
+export default class Stats extends React.Component {
   static navigationOptions = {
-    tabBarLabel: 'Reviews',
+    tabBarLabel: 'Stats',
     tabBarIcon: (<Icon name='ios-paper-outline' size={30}/> )
   };
 
   constructor(props) {
     super(props);
-    this.renderReviews = this.renderReviews.bind(this);
+    this.renderStats = this.renderStats.bind(this);
     this.state={
       loading: true,
     }
   }
 
   componentDidMount() {
-    this.props.fetchCurrentReviews(this.props.currentSpaceID).then(() => this.setState({loading: false}))
+    // this.props.fetchCurrentStats(this.props.currentSpaceID).then(() => this.setState({loading: false}))
   }
 
-  renderReviews() {
+  renderStats() {
     return this.state.loading ? (<Text>Loading</Text>) : (
 
       <View>
-        <Text>Reviews are loaded</Text>
+        <Text>Stats are loaded</Text>
       </View>
 
     );
   }
 
   render() {
-    console.log('reviews', this.props.currentSpaceID);
+    console.log('Stats', this.props.currentSpaceID);
     return (
       <View style={{backgroundColor: 'white', flex: 1}}>
         <View style={{padding: 5, paddingTop: 10}}>
           <Text> {this.props.currentSpaceID} </Text>
-          {this.renderReviews()}
+          {this.renderStats()}
         </View>
       </View>
     );

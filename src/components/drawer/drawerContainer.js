@@ -6,13 +6,14 @@ import Drawer from './drawer';
 const mapStateToProps = (state) => {
   return {
     drawerViewStatus: state.ui.drawerViewStatus,
-    currentSpaceID: state.ui.currentSpaceID
+    currentSpaceID: state.ui.currentSpaceID,
+    currentReviews: state.db.currentReviews
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setDrawerView: (status) => dispatch(setDrawerView(status))
+    setDrawerView: (status) => dispatch(setDrawerView(status)),
   };
 };
 

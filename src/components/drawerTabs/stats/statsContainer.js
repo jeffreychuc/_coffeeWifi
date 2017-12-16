@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Reviews from './reviews';
+import Stats from './stats';
 import { fetchCurrentReviews } from '../../../actions/db_actions';
 
 
@@ -12,8 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchCurrentReviews: (businessID) => dispatch(fetchCurrentReviews(businessID))
+
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
+export default connect(mapStateToProps, mapDispatchToProps)(Stats);

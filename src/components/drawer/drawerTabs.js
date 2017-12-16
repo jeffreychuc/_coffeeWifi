@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import OrdersContainer from '../drawerTabs/orders/ordersContainer';
 import ReviewsContainer from '../drawerTabs/reviews/reviewsContainer';
-import StatusContainer from '../drawerTabs/status/statusContainer';
+import StatsContainer from '../drawerTabs/stats/statsContainer';
 
 export default TabNavigator({
   Order: {
@@ -13,9 +13,10 @@ export default TabNavigator({
     screen: ReviewsContainer,
   },
   Stats: {
-    screen: StatusContainer,
+    screen: StatsContainer,
   }
 }, {
+  lazy: true,
   tabBarPosition: 'top',
   animationEnabled: true,
   tabBarOptions: {
@@ -26,4 +27,3 @@ export default TabNavigator({
     }
   },
 });
-

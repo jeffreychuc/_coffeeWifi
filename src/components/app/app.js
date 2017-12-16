@@ -30,7 +30,7 @@ export default class App extends React.Component {
             .then(currentUserProfile => {
               this.setState({ currentUserProfile: currentUserProfile.currentUserProfile });
               //SAVE currentUserProfile.currentUserProfile object
-              SessionAPIUtil.saveUserProfile(currentUserProfile.currentUserProfile)
+              // SessionAPIUtil.saveUserProfile(currentUserProfile.currentUserProfile);
               }
             );
           }

@@ -12,9 +12,11 @@ import merge from 'lodash/merge';
 import haversine from 'haversine';
 import Triangle from 'react-native-triangle';
 import shortid from 'shortid';
-import { fetchLocalWorkspaces } from '../../util/db_api_util';
+import isEqual from 'lodash/isEqual';
 import { StyleSheet, Text, View, Button, Platform, Alert, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
-const DEFAULT_PADDING = { top: 250, right: 100, bottom: 75, left: 100 };
+
+const DEFAULT_PADDING = { top: 300, right: 100, bottom: 75, left: 100 };
+
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,7 @@ export default class Map extends React.Component {
     this.calcDistanceTo = this.calcDistanceTo.bind(this);
     this.renderSplashImage = this.renderSplashImage.bind(this);
     this.handleDrawer = this.handleDrawer.bind(this);
-    this.getWorkspaces = this.getWorkspaces.bind(this);
+    // this.getWorkspaces = this.getWorkspaces.bind(this);
     this.renderRedoSearchButton = this.renderRedoSearchButton.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
     // this.fitPadding = this.fitPadding.bind(this);
@@ -33,7 +35,8 @@ export default class Map extends React.Component {
       loading: true,
       filterModalDelay: false,
       currentSelectedPinRegion: null,
-      currentWorkspaces: []
+      lastSearchLocation: null,
+      workspaces: [],
     };
   }
 
@@ -42,7 +45,10 @@ export default class Map extends React.Component {
       (position) => {
         let initialPosition = JSON.stringify(position);
         this.state.initialPosition = initialPosition;
-        this.getWorkspaces(position.coords.latitude, position.coords.longitude, 5);
+
+        //this.props not pulling wtf?
+        let location = [position.coords.latitude, position.coords.longitude];
+        this.props.fetchLocalWorkspaces(location, 0.1);
       },
       (error) => alert(error.message),
       {enableHighAccuracy: false, timeout: 10000, maximumAge: 1000}
@@ -61,8 +67,12 @@ export default class Map extends React.Component {
       this.setState({filterModalDelay: true});
     }
     else  {
-      setTimeout(() => this.setState({filterModalDelay: false}), 600);
+      setTimeout(() => this.setState({filterModalDelay: false}), 400);
     }
+    // if (!isEqual(this.state.workspaces, nextProps.workspaces)) {
+    //   console.log('getting new props, setting state for workspaces');
+    //   this.setState({workspaces: nextProps.workspaces});
+    // }
   }
 
   componentWillUnmount() {
@@ -92,25 +102,19 @@ export default class Map extends React.Component {
   }
 
   handleDrawer(e)  {
-    e.stopPropagation();
-    console.log('lol');
     this.props.setDrawerView(true);
   }
 
-  getWorkspaces(currLat, currLong, radius) {
-    fetchLocalWorkspaces([currLat,  currLong], 5).then(currentWorkspaces => this.setState({currentWorkspaces}));
-    debugger;
-  }
+  // getWorkspaces(currLat, currLong, radius) {
+  //   fetchLocalWorkspaces([currLat,  currLong], 0.1).then(currentWorkspaces => this.setState({currentWorkspaces}));
+  // }
 
   renderRedoSearchButton() {
 
   }
 
   onRegionChange(region) {
-    console.log('KDJSLKDJASLKJDLKASJKDJSLDA');
-    console.log(region);
     this.state.region = region;
-    console.log(this.state);
   }
 
   //markers are objects in an array with a lat/long
@@ -144,18 +148,22 @@ export default class Map extends React.Component {
           showsCompass={false}
           onRegionChange={region => this.onRegionChange(region)}
         >
-          {this.state.currentWorkspaces.map(workspace => {
+          {this.props.workspaces.map(workspace => {
             // console.log(workspace.loc.coordinates[1], workspace.loc.coordinates[0]);
             const currentLocParsed = JSON.parse(this.state.lastPosition).coords;
             let markerCords = {
               latitude: workspace.loc.coordinates[1],
               longitude: workspace.loc.coordinates[0],};
             return (
-            <MapView.Marker.Animated
+            <MapView.Marker
               coordinate={markerCords}
               onCalloutPress={(e) => this.handleDrawer(e)}
               // calloutVisible={workspace._id === this.state.setCurrentSpaceView}
-              onPress={(e) => {e.stopPropagation(); this.snapToMarker([markerCords, {longitude: currentLocParsed.longitude, latitude: currentLocParsed.latitude}]); this.props.setCurrentSpaceView(workspace._id);}}
+              onPress={(e) => {
+                e.stopPropagation();
+                this.snapToMarker([markerCords, {longitude: currentLocParsed.longitude, latitude: currentLocParsed.latitude}]);
+                this.props.setCurrentSpaceView(workspace._id);
+              }}
               // this.setState({currentSelectedPinRegion: { latitude: workspace.loc.coordinates[1], longitude: workspace.loc.coordinates[0], longitudeDelta: 0.01, latitudeDelta: 0.01}});
               key={shortid.generate()}
 
@@ -167,16 +175,16 @@ export default class Map extends React.Component {
                     longitude: workspace.loc.coordinates[0]})} />
                   </View>
                 </TouchableWithoutFeedback>
-                <View style={styles.triangleView}>
+                {/* <View style={styles.triangleView}>
                   <Triangle
                       width={30}
                       height={10}
                       color={'#D80016'}
                       direction={'down'}
                   />
-                </View>
+                </View> */}
               </MapView.Callout>
-            </MapView.Marker.Animated>
+            </MapView.Marker>
             );
           })}
         </MapView>
@@ -211,9 +219,9 @@ export default class Map extends React.Component {
       <View style={styles.container}>
         {this.renderMapView()}
         {this.renderFilterModal()}
-        <View style={styles.debug}>
+        {/* <View style={styles.debug}>
           <Text> {this.state.lastPosition}</Text>
-        </View>
+        </View> */}
         <SearchFloatContainer />
         <View style={styles.logout}>
           <MenuIconContainer />

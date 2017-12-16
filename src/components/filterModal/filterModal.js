@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
+import { View, StyleSheet, Dimensions, TouchableOpacity, TextInput } from 'react-native';
+import { Container, Header, Item, Input, Icon, Button, Text, Content, List, ListItem, Left, Body, Right, Switch } from 'native-base';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 
@@ -9,7 +9,11 @@ export default class FilterModal extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderModal = this.renderModal.bind(this);
-    this.state = {filterViewStatus: false};
+    this.state = {
+      filterViewStatus: false,
+      wifi: true,
+      outlets: '1'
+    };
   }
 
   componentWillReceiveProps(nextProps)  {
@@ -28,9 +32,50 @@ export default class FilterModal extends React.Component {
   }
 
   renderModal()  {
+    console.log('state of filter modal is ', this.state);
     return (
-      <View style={styles.container}rounded>
-        <Text>LOL</Text>
+      <Container style={styles.container}rounded>
+        <Content>
+          <List>
+            <ListItem>
+              <Body>
+                <Text>I'm looking for a workspace that has</Text>
+              </Body>
+            </ListItem>
+            <ListItem icon>
+              <Left>
+                <Icon name='power' />
+              </Left>
+              <Body>
+                <Text>Outlets</Text>
+              </Body>
+              <Right>
+                <TextInput
+                  style={{height: 40, width: 50}}
+                  onChangeText={outlets => this.setState({outlets})}
+                  value={this.state.outlets}
+                  selectTextOnFocus={true}
+                  maxLength={2}
+                  keyboardType={'numeric'}
+                />
+              </Right>
+            </ListItem>
+            <ListItem icon>
+              <Left>
+                <Icon name="wifi" />
+              </Left>
+              <Body>
+                <Text>Wifi</Text>
+              </Body>
+              <Right>
+                <Switch
+                value={this.state.wifi}
+                onValueChange={wifi => this.setState({wifi})}
+                />
+              </Right>
+            </ListItem>
+          </List>
+        </Content>
         <View style={styles.buttonBottom}>
           <Button onPress={(e) => this.handleSubmit(e, false)} style={styles.button}>
             <View style={styles.buttonTextView}>
@@ -43,7 +88,7 @@ export default class FilterModal extends React.Component {
             </View>
         </Button>
         </View>
-      </View>
+      </Container>
     );
   }
 

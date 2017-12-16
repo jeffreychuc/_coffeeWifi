@@ -28,14 +28,16 @@ export const fetchLocalWorkspaces = (location, radius) => (
       'Content-Type': 'application/json',
     }
    }).then( response => {
-     if (response.status === 200) {
-       return response.json();
-     }
-     else {
-       return [];
-     }
-   })
+    if (response.status === 200) {
+     return response.json();
+    }
+    else {
+     return [];
+    }
+  })
 );
+
+
 
 export const fetchUserReviews = (user) => (
   fetch(`https://coffeewifi.herokuapp.com/user/${user._id}/reviews`, {
@@ -44,7 +46,14 @@ export const fetchUserReviews = (user) => (
       Accept: 'application/json',
       'Content-Type': 'application/json',
     }
-   })
+   }).then( response => {
+    if (response.status === 200) {
+      return response.json();
+    }
+    else {
+      return [];
+    }
+  })
 );
 
 export const fetchBusinessReviews = (business) => (
@@ -54,7 +63,14 @@ export const fetchBusinessReviews = (business) => (
       Accept: 'application/json',
       'Content-Type': 'application/json',
     }
-   })
+   }).then( response => {
+    if (response.status === 200) {
+      return response.json();
+    }
+    else {
+      return [];
+    }
+  })
 );
 
 
@@ -76,4 +92,21 @@ export const postBusinessReview = (business, user, review) => (
                                     }
                         })
    })
+);
+
+export const fetchBusinessStats = (business) => (
+  fetch(`https://coffeewifi.herokuapp.com/business/${business._id}/stats`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+   }).then( response => {
+    if (response.status === 200) {
+      return response.json();
+    }
+    else {
+      return [];
+    }
+  })
 );
