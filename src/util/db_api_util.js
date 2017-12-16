@@ -21,12 +21,19 @@ export const filterWorkspaces = (filter) => (
 );
 
 export const fetchLocalWorkspaces = (location, radius) => (
-  fetch(`https://coffeewifi.herokuapp.com/businesses?longitude=${location[0]}&latitude=${location[1]}&radius=${radius}`, {
+  fetch(`https://coffeewifi.herokuapp.com/businesses?latitude=${location[0]}&longitude=${location[1]}&radius=${radius}`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     }
+   }).then( response => {
+     if (response.status === 200) {
+       return response.json();
+     }
+     else {
+       return [];
+     }
    })
 );
 

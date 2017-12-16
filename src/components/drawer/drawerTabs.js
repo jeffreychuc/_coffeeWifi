@@ -20,6 +20,10 @@ export default TabNavigator({
   animationEnabled: true,
   tabBarOptions: {
     activeTintColor: '#e91e63',
+    style: {
+      position: 'relative',
+      top: -1,
+    }
   },
 });
 
