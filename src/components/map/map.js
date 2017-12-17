@@ -33,7 +33,7 @@ export default class Map extends React.Component {
       initialPosition: null,
       lastPosition: null,
       loading: true,
-      filterModalDelay: false,
+      // filterModalDelay: false,
       currentSelectedPinRegion: null,
       lastSearchLocation: null,
       workspaces: [],
@@ -63,12 +63,12 @@ export default class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps)  {
-    if (nextProps.filterViewStatus)  {
-      this.setState({filterModalDelay: true});
-    }
-    else  {
-      setTimeout(() => this.setState({filterModalDelay: false}), 400);
-    }
+    // if (nextProps.filterViewStatus)  {
+    //   this.setState({filterModalDelay: true});
+    // }
+    // else  {
+    //   setTimeout(() => this.setState({filterModalDelay: false}), 400);
+    // }
     // if (!isEqual(this.state.workspaces, nextProps.workspaces)) {
     //   console.log('getting new props, setting state for workspaces');
     //   this.setState({workspaces: nextProps.workspaces});
@@ -90,6 +90,7 @@ export default class Map extends React.Component {
 
   calcDistanceTo(workSpace)  {
     if (this.state.lastPosition) {
+      debugger;
       let currLat = JSON.parse(this.state.lastPosition).coords.latitude;
       let currLong = JSON.parse(this.state.lastPosition).coords.longitude;
       let start = {latitude: currLat, longitude: currLong};
@@ -195,14 +196,14 @@ export default class Map extends React.Component {
     }
   }
 
-  renderFilterModal() {
-    //need to handle animation out somehow
-    return this.state.filterModalDelay ? (
-      <Animatable.View animation={this.props.filterViewStatus ?  'fadeIn' : 'fadeOut' } duration={300} style={styles.filterModal}>
-        <FilterModalContainer />
-      </Animatable.View>
-    ) : null;
-  }
+  // renderFilterModal() {
+  //   //need to handle animation out somehow
+  //   return this.state.filterModalDelay ? (
+  //     <Animatable.View animation={this.props.filterViewStatus ?  'fadeIn' : 'fadeOut' } duration={300} style={styles.filterModal}>
+  //       <FilterModalContainer />
+  //     </Animatable.View>
+  //   ) : null;
+  // }
 
   renderSplashImage() {
     return this.state.loading ?
@@ -218,7 +219,9 @@ export default class Map extends React.Component {
     return (
       <View style={styles.container}>
         {this.renderMapView()}
-        {this.renderFilterModal()}
+        <View style={styles.filterModal}>
+          <FilterModalContainer />
+        </View >
         {/* <View style={styles.debug}>
           <Text> {this.state.lastPosition}</Text>
         </View> */}
