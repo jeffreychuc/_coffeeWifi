@@ -11,7 +11,7 @@ const dbReducer = (state = _initialdbState, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_WORKSPACES:
-      return merge({}, state, { workspaces: action.workspaces });
+      return { workspaces: action.workspaces };
     case RECEIVE_CURRENT_REVIEWS:
       return merge({}, state, {currentReviews: action.currentReviews});
     default:

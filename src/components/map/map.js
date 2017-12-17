@@ -6,6 +6,7 @@ import MenuIconContainer from '../menuIcon/menuIconContainer';
 import SearchFloatContainer from '../searchFloat/searchFloatContainer';
 import FilterModalContainer from '../filterModal/filterModalContainer';
 import DrawerContainer from '../drawer/drawerContainer';
+import RedoSearchButtonContainer from '../../components/redoSearchButton/redoSearchButtonContainer';
 import * as Animatable from 'react-native-animatable';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import merge from 'lodash/merge';
@@ -13,10 +14,11 @@ import haversine from 'haversine';
 import Triangle from 'react-native-triangle';
 import shortid from 'shortid';
 import isEqual from 'lodash/isEqual';
-import { StyleSheet, Text, View, Button, Platform, Alert, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, Platform, Alert, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
+import { Button } from 'native-base';
 
 const DEFAULT_PADDING = { top: 300, right: 100, bottom: 75, left: 100 };
-
+const DEFAULT_INTIAL_DELTA = {longitudeDelta: 0.02000000049591222, latitudeDelta: 0.02811415461493283};
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -24,9 +26,10 @@ export default class Map extends React.Component {
     this.calcDistanceTo = this.calcDistanceTo.bind(this);
     this.renderSplashImage = this.renderSplashImage.bind(this);
     this.handleDrawer = this.handleDrawer.bind(this);
-    // this.getWorkspaces = this.getWorkspaces.bind(this);
-    this.renderRedoSearchButton = this.renderRedoSearchButton.bind(this);
+    this.getWorkspaces = this.getWorkspaces.bind(this);
+    // this.renderRedoSearchButton = this.renderRedoSearchButton.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
+    let renderSearchTimerID;
     // this.fitPadding = this.fitPadding.bind(this);
 
     this.state = {
@@ -37,6 +40,7 @@ export default class Map extends React.Component {
       currentSelectedPinRegion: null,
       lastSearchLocation: null,
       workspaces: [],
+      renderSearch: false
     };
   }
 
@@ -46,9 +50,14 @@ export default class Map extends React.Component {
         let initialPosition = JSON.stringify(position);
         this.state.initialPosition = initialPosition;
 
-        //this.props not pulling wtf?
         let location = [position.coords.latitude, position.coords.longitude];
-        this.props.fetchLocalWorkspaces(location, 0.1);
+        // this.state.lastSearchLocation = {
+        //   latitude: position.coords.latitude,
+        //   longitude: position.coords.longitude,
+        //   longitudeDelta: DEFAULT_INTIAL_DELTA.longitudeDelta,
+        //   latitudeDelta: DEFAULT_INTIAL_DELTA.latitudeDelta
+        // };
+        this.props.fetchLocalWorkspaces(location, DEFAULT_INTIAL_DELTA.latitudeDelta * 69 / 2);
       },
       (error) => alert(error.message),
       {enableHighAccuracy: false, timeout: 10000, maximumAge: 1000}
@@ -90,7 +99,6 @@ export default class Map extends React.Component {
 
   calcDistanceTo(workSpace)  {
     if (this.state.lastPosition) {
-      debugger;
       let currLat = JSON.parse(this.state.lastPosition).coords.latitude;
       let currLong = JSON.parse(this.state.lastPosition).coords.longitude;
       let start = {latitude: currLat, longitude: currLong};
@@ -106,16 +114,29 @@ export default class Map extends React.Component {
     this.props.setDrawerView(true);
   }
 
-  // getWorkspaces(currLat, currLong, radius) {
-  //   fetchLocalWorkspaces([currLat,  currLong], 0.1).then(currentWorkspaces => this.setState({currentWorkspaces}));
-  // }
-
-  renderRedoSearchButton() {
-
+  getWorkspaces() {
+    // need to close last opened callout
+    let currLat = this.state.region.latitude;
+    let currLong = this.state.region.longitude;
+    let latDelta = this.state.region.latitudeDelta;
+    let longDelta = this.state.region.longitudeDelta;
+    // 1 latitude is 111045 meters
+    let radius = Math.max(latDelta, longDelta) * 69/2;
+    this.props.fetchLocalWorkspaces([currLat,  currLong], radius).then(currentWorkspaces => this.setState({currentWorkspaces}));
   }
 
   onRegionChange(region) {
     this.state.region = region;
+    // logic to set state of render button
+    let test = !isEqual(this.state.lastSearchLocation, this.state.region);
+    if (this.state.loading) {
+      this.state.lastSearchLocation = this.state.region;
+    }
+    if (!isEqual(this.state.lastSearchLocation, this.state.region) && !this.state.renderSearch ) {
+      clearTimeout(this.renderSearchTimerID);
+      //change this to dispatch
+      this.renderSearchTimerID = setTimeout(() => this.props.setRedoSearchButtonStatus(true), 1000);
+    }
   }
 
   //markers are objects in an array with a lat/long
@@ -136,8 +157,8 @@ export default class Map extends React.Component {
           initialRegion = {{
             latitude: parsedState.coords.latitude,
             longitude: parsedState.coords.longitude,
-            longitudeDelta: 0.01,
-            latitudeDelta: 0.01
+            longitudeDelta: 0.02,
+            latitudeDelta: 0.02
           }}
           ref={(ref) => { this.mapRef = ref; }}
           followsUserLocation={false}
@@ -148,6 +169,8 @@ export default class Map extends React.Component {
           region={this.state.currentSelectedPinRegion}
           showsCompass={false}
           onRegionChange={region => this.onRegionChange(region)}
+          // calloutOffset={{ x: -8, y: 28 }}
+          // calloutAnchor={{ x: 0.5, y: 0.4 }}
         >
           {this.props.workspaces.map(workspace => {
             // console.log(workspace.loc.coordinates[1], workspace.loc.coordinates[0]);
@@ -229,7 +252,7 @@ export default class Map extends React.Component {
         <View style={styles.logout}>
           <MenuIconContainer />
         </View>
-        {this.renderRedoSearchButton()}
+        <RedoSearchButtonContainer getWorkspaces={this.getWorkspaces} />
         <DrawerContainer />
         {this.renderSplashImage()}
       </View>
@@ -293,4 +316,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0
   },
+  searchButtonView: {
+    position: 'absolute',
+    bottom: 25,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  searchButtonHidden: {
+    position: 'absolute',
+    bottom: 30,
+  }
 });
