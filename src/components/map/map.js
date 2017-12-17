@@ -181,7 +181,7 @@ export default class Map extends React.Component {
           showsUserLocation={true}
           mapType={'mutedStandard'}
           userLocationAnnotationTitle={''}
-          region={this.state.currentSelectedPinRegion}
+          // region={this.state.currentSelectedPinRegion}
           showsCompass={false}
           onRegionChange={region => this.onRegionChange(region)}
           // calloutOffset={{ x: -8, y: 28 }}
@@ -208,7 +208,6 @@ export default class Map extends React.Component {
               }}
               // this.setState({currentSelectedPinRegion: { latitude: workspace.loc.coordinates[1], longitude: workspace.loc.coordinates[0], longitudeDelta: 0.01, latitudeDelta: 0.01}});
               key={shortid.generate()}
-
             >
               <MapView.Callout tooltip={true} style={styles.callout}>
                 <TouchableWithoutFeedback >

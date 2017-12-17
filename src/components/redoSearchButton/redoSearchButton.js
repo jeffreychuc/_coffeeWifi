@@ -11,7 +11,6 @@ export default class redoSearchButton extends React.Component {
   }
 
   render() {
-    console.log(this.props.redoSearchButtonStatus);
     return (!this.props.redoSearchButtonStatus) ? null : (
       <View style={styles.container}>
         <Button rounded
