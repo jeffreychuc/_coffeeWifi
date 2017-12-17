@@ -30,7 +30,11 @@ export default class App extends React.Component {
             .then(currentUserProfile => {
               this.setState({ currentUserProfile: currentUserProfile.currentUserProfile });
               //SAVE currentUserProfile.currentUserProfile object
-              SessionAPIUtil.saveUserProfile(currentUserProfile.currentUserProfile)
+
+              // SessionAPIUtil.saveUserProfile(currentUserProfile.currentUserProfile);
+
+
+
               }
             );
           }
@@ -39,7 +43,6 @@ export default class App extends React.Component {
 
   handleLogin() {
     this.props.login().then(action => {
-      // this.setState({currentUser :  action.currentUser});
       SInfo.setItem('currentUser', action.currentUser.accessToken, {
         sharedPreferencesName: 'accessToken',
         keychainService: 'com.rootuser.coffeewifi'

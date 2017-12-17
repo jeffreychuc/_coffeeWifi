@@ -5,22 +5,44 @@ import MapCustomCallout from './mapCustomCallout';
 import MenuIconContainer from '../menuIcon/menuIconContainer';
 import SearchFloatContainer from '../searchFloat/searchFloatContainer';
 import FilterModalContainer from '../filterModal/filterModalContainer';
+import DrawerContainer from '../drawer/drawerContainer';
+import RedoSearchButtonContainer from '../../components/redoSearchButton/redoSearchButtonContainer';
 import * as Animatable from 'react-native-animatable';
-// import FadeInOut from '../fade/fade';
+import SlidingUpPanel from 'rn-sliding-up-panel';
+import merge from 'lodash/merge';
 import haversine from 'haversine';
-import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
+import Triangle from 'react-native-triangle';
+import shortid from 'shortid';
+import isEqual from 'lodash/isEqual';
+import { StyleSheet, Text, View, Platform, Alert, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
+import { Button } from 'native-base';
 
+const DEFAULT_PADDING = { top: 300, right: 100, bottom: 75, left: 100 };
+const DEFAULT_INTIAL_DELTA = {longitudeDelta: 0.02000000049591222, latitudeDelta: 0.02811415461493283};
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
     this.calcDistanceTo = this.calcDistanceTo.bind(this);
     this.renderSplashImage = this.renderSplashImage.bind(this);
+    this.handleDrawer = this.handleDrawer.bind(this);
+    this.getWorkspaces = this.getWorkspaces.bind(this);
+    this.closeAllCallouts = this.closeAllCallouts.bind(this);
+    this.markerRefs = {};
+    // this.renderRedoSearchButton = this.renderRedoSearchButton.bind(this);
+    this.onRegionChange = this.onRegionChange.bind(this);
+    let renderSearchTimerID;
+    // this.fitPadding = this.fitPadding.bind(this);
+
     this.state = {
       initialPosition: null,
       lastPosition: null,
       loading: true,
-      filterModalDelay: false
+      // filterModalDelay: false,
+      currentSelectedPinRegion: null,
+      lastSearchLocation: null,
+      workspaces: [],
+      renderSearch: false
     };
   }
 
@@ -28,7 +50,16 @@ export default class Map extends React.Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         let initialPosition = JSON.stringify(position);
-        this.setState({initialPosition});
+        this.state.initialPosition = initialPosition;
+
+        let location = [position.coords.latitude, position.coords.longitude];
+        // this.state.lastSearchLocation = {
+        //   latitude: position.coords.latitude,
+        //   longitude: position.coords.longitude,
+        //   longitudeDelta: DEFAULT_INTIAL_DELTA.longitudeDelta,
+        //   latitudeDelta: DEFAULT_INTIAL_DELTA.latitudeDelta
+        // };
+        this.props.fetchLocalWorkspaces(location, DEFAULT_INTIAL_DELTA.latitudeDelta * 69 / 2);
       },
       (error) => alert(error.message),
       {enableHighAccuracy: false, timeout: 10000, maximumAge: 1000}
@@ -36,19 +67,24 @@ export default class Map extends React.Component {
     this.watchID = navigator.geolocation.watchPosition((position) => {
       let lastPosition = JSON.stringify(position);
       console.log('setting state to, ', { lastPosition });
-      this.setState({lastPosition});
+      // this.setState({lastPosition});
+      this.state.lastPosition = lastPosition;
     }, (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
     setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(300).then(() => this.setState({loading: false})) : null;}, 350);
   }
 
   componentWillReceiveProps(nextProps)  {
-    if (nextProps.filterViewStatus)  {
-      this.setState({filterModalDelay: true});
-    }
-    else  {
-      setTimeout(() => this.setState({filterModalDelay: false}), 600);
-    }
+    // if (nextProps.filterViewStatus)  {
+    //   this.setState({filterModalDelay: true});
+    // }
+    // else  {
+    //   setTimeout(() => this.setState({filterModalDelay: false}), 400);
+    // }
+    // if (!isEqual(this.state.workspaces, nextProps.workspaces)) {
+    //   console.log('getting new props, setting state for workspaces');
+    //   this.setState({workspaces: nextProps.workspaces});
+    // }
   }
 
   componentWillUnmount() {
@@ -77,43 +113,122 @@ export default class Map extends React.Component {
     }
   }
 
+  handleDrawer(e)  {
+    this.props.setDrawerView(true);
+  }
+
+  getWorkspaces() {
+    // need to close last opened callout
+    let currLat = this.state.region.latitude;
+    let currLong = this.state.region.longitude;
+    let latDelta = this.state.region.latitudeDelta;
+    let longDelta = this.state.region.longitudeDelta;
+    // 1 latitude is 111045 meters
+    let radius = Math.max(latDelta, longDelta) * 69/2;
+    this.props.fetchLocalWorkspaces([currLat,  currLong], radius).then(currentWorkspaces => this.setState({currentWorkspaces}));
+  }
+
+  onRegionChange(region) {
+    this.state.region = region;
+    // logic to set state of render button
+    let test = !isEqual(this.state.lastSearchLocation, this.state.region);
+    if (this.state.loading) {
+      this.state.lastSearchLocation = this.state.region;
+    }
+    if (!isEqual(this.state.lastSearchLocation, this.state.region) && !this.state.renderSearch ) {
+      clearTimeout(this.renderSearchTimerID);
+      //change this to dispatch
+      this.renderSearchTimerID = setTimeout(() => this.props.setRedoSearchButtonStatus(true), 1000);
+    }
+  }
+
+  //markers are objects in an array with a lat/long
+  snapToMarker(markers) {
+    debugger;
+    this.mapRef.fitToCoordinates(markers, {
+      edgePadding: DEFAULT_PADDING,
+      animated: true,
+    });
+  }
+
+  closeAllCallouts()  {
+    //super hacky but we cannot be sure which callout is open due to react-native-maps bug
+    console.log(this.markerRefs);
+    debugger;
+    Object.values(this.markerRefs).forEach((marker) => {
+      if (marker) {
+        marker.hideCallout();
+      }
+    });
+  }
+
   renderMapView() {
     let parsedState = JSON.parse(this.state.initialPosition);
     if (parsedState !== null) {
       console.log('drawing map');
+      console.log(this.state);
       return (
         <MapView style={styles.map}
           initialRegion = {{
             latitude: parsedState.coords.latitude,
             longitude: parsedState.coords.longitude,
-            longitudeDelta: 0.005,
-            latitudeDelta: 0.006
-          }} followsUserLocation={false}
-             loadingEnabled={true}
-             showsUserLocation={true}
-             mapType={'mutedStandard'}
-             userLocationAnnotationTitle={''}
+            longitudeDelta: 0.02,
+            latitudeDelta: 0.02
+          }}
+          ref={(ref) => { this.mapRef = ref; }}
+          followsUserLocation={false}
+          loadingEnabled={true}
+          showsUserLocation={true}
+          mapType={'mutedStandard'}
+          userLocationAnnotationTitle={''}
+          region={this.state.currentSelectedPinRegion}
+          showsCompass={false}
+          onRegionChange={region => this.onRegionChange(region)}
+          // calloutOffset={{ x: -8, y: 28 }}
+          // calloutAnchor={{ x: 0.5, y: 0.4 }}
         >
-          <MapView.Marker
-              coordinate={{latitude: 37.785,
-              longitude: -122.4064}}
-              onPress={(e) => e.stopPropagation()}
-          >
-            <MapView.Callout tooltip={true} style={styles.callout}>
-              <MapCustomCallout currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: 37.785,
-              longitude: -122.4064})} />
-            </MapView.Callout>
-          </MapView.Marker>
-          <MapView.Marker
-              coordinate={{latitude: 37.783,
-              longitude: -122.403}}
-              onPress={(e) => e.stopPropagation()}
-          >
-          <MapView.Callout tooltip={true} style={styles.callout}>
-              <MapCustomCallout currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: 37.785,
-              longitude: -122.4064})} />
-            </MapView.Callout>
-          </MapView.Marker>
+          {this.props.workspaces.map(workspace => {
+            // console.log(workspace.loc.coordinates[1], workspace.loc.coordinates[0]);
+            const currentLocParsed = JSON.parse(this.state.lastPosition).coords;
+            let markerCords = {
+              latitude: workspace.loc.coordinates[1],
+              longitude: workspace.loc.coordinates[0],};
+            debugger;
+            return (
+            <MapView.Marker
+              ref={(ref) => { this.markerRefs[workspace._id] = ref; }}
+              coordinate={markerCords}
+              onCalloutPress={(e) => this.handleDrawer(e)}
+              // calloutVisible={workspace._id === this.state.setCurrentSpaceView}
+              onPress={(e) => {
+                e.stopPropagation();
+                debugger;
+                this.snapToMarker([markerCords, {longitude: currentLocParsed.longitude, latitude: currentLocParsed.latitude}]);
+                this.props.setCurrentSpaceView(workspace._id);
+              }}
+              // this.setState({currentSelectedPinRegion: { latitude: workspace.loc.coordinates[1], longitude: workspace.loc.coordinates[0], longitudeDelta: 0.01, latitudeDelta: 0.01}});
+              key={shortid.generate()}
+
+            >
+              <MapView.Callout tooltip={true} style={styles.callout}>
+                <TouchableWithoutFeedback >
+                  <View>
+                    <MapCustomCallout name={workspace.name} style={{zIndex: 10}} currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: workspace.loc.coordinates[1],
+                    longitude: workspace.loc.coordinates[0]})} />
+                  </View>
+                </TouchableWithoutFeedback>
+                {/* <View style={styles.triangleView}>
+                  <Triangle
+                      width={30}
+                      height={10}
+                      color={'#D80016'}
+                      direction={'down'}
+                  />
+                </View> */}
+              </MapView.Callout>
+            </MapView.Marker>
+            );
+          })}
         </MapView>
       );
     }
@@ -122,14 +237,14 @@ export default class Map extends React.Component {
     }
   }
 
-  renderFilterModal() {
-    //need to handle animation out somehow
-    return this.state.filterModalDelay ? (
-      <Animatable.View animation={this.props.filterViewStatus ?  'fadeIn' : 'fadeOut' } duration={300} style={styles.filterModal}>
-        <FilterModalContainer />
-      </Animatable.View>
-    ) : null;
-  }
+  // renderFilterModal() {
+  //   //need to handle animation out somehow
+  //   return this.state.filterModalDelay ? (
+  //     <Animatable.View animation={this.props.filterViewStatus ?  'fadeIn' : 'fadeOut' } duration={300} style={styles.filterModal}>
+  //       <FilterModalContainer />
+  //     </Animatable.View>
+  //   ) : null;
+  // }
 
   renderSplashImage() {
     return this.state.loading ?
@@ -145,14 +260,18 @@ export default class Map extends React.Component {
     return (
       <View style={styles.container}>
         {this.renderMapView()}
-        {this.renderFilterModal()}
-        <View style={styles.debug}>
+        <View style={styles.filterModal}>
+          <FilterModalContainer />
+        </View >
+        {/* <View style={styles.debug}>
           <Text> {this.state.lastPosition}</Text>
-        </View>
+        </View> */}
         <SearchFloatContainer />
         <View style={styles.logout}>
           <MenuIconContainer />
         </View>
+        <RedoSearchButtonContainer closeAllCallouts={this.closeAllCallouts} getWorkspaces={this.getWorkspaces} />
+        <DrawerContainer />
         {this.renderSplashImage()}
       </View>
     );
@@ -172,6 +291,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
+    zIndex: -1
   },
   logout: {
     position: 'absolute',
@@ -204,4 +324,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1
   },
+  callout: {
+    position: 'absolute',
+    height: 160,
+    width: 200,
+    backgroundColor: 'red',
+    zIndex: 10000
+  },
+  triangleView: {
+    position: 'absolute',
+    bottom: 0
+  },
+  searchButtonView: {
+    position: 'absolute',
+    bottom: 25,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  searchButtonHidden: {
+    position: 'absolute',
+    bottom: 30,
+  }
 });
