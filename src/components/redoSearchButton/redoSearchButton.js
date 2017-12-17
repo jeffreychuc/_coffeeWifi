@@ -10,13 +10,13 @@ export default class redoSearchButton extends React.Component {
     super(props);
   }
 
-
   render() {
     console.log(this.props.redoSearchButtonStatus);
     return (!this.props.redoSearchButtonStatus) ? null : (
       <View style={styles.container}>
         <Button rounded
           onPress={() => {
+            this.props.closeAllCallouts();
             this.props.getWorkspaces();
             this.props.setRedoSearchButtonStatus(false);
           }}

@@ -27,6 +27,8 @@ export default class Map extends React.Component {
     this.renderSplashImage = this.renderSplashImage.bind(this);
     this.handleDrawer = this.handleDrawer.bind(this);
     this.getWorkspaces = this.getWorkspaces.bind(this);
+    this.closeAllCallouts = this.closeAllCallouts.bind(this);
+    this.markerRefs = {};
     // this.renderRedoSearchButton = this.renderRedoSearchButton.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
     let renderSearchTimerID;
@@ -65,7 +67,8 @@ export default class Map extends React.Component {
     this.watchID = navigator.geolocation.watchPosition((position) => {
       let lastPosition = JSON.stringify(position);
       console.log('setting state to, ', { lastPosition });
-      this.setState({lastPosition});
+      // this.setState({lastPosition});
+      this.state.lastPosition = lastPosition;
     }, (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
     setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(300).then(() => this.setState({loading: false})) : null;}, 350);
@@ -141,9 +144,21 @@ export default class Map extends React.Component {
 
   //markers are objects in an array with a lat/long
   snapToMarker(markers) {
+    debugger;
     this.mapRef.fitToCoordinates(markers, {
       edgePadding: DEFAULT_PADDING,
       animated: true,
+    });
+  }
+
+  closeAllCallouts()  {
+    //super hacky but we cannot be sure which callout is open due to react-native-maps bug
+    console.log(this.markerRefs);
+    debugger;
+    Object.values(this.markerRefs).forEach((marker) => {
+      if (marker) {
+        marker.hideCallout();
+      }
     });
   }
 
@@ -178,13 +193,16 @@ export default class Map extends React.Component {
             let markerCords = {
               latitude: workspace.loc.coordinates[1],
               longitude: workspace.loc.coordinates[0],};
+            debugger;
             return (
             <MapView.Marker
+              ref={(ref) => { this.markerRefs[workspace._id] = ref; }}
               coordinate={markerCords}
               onCalloutPress={(e) => this.handleDrawer(e)}
               // calloutVisible={workspace._id === this.state.setCurrentSpaceView}
               onPress={(e) => {
                 e.stopPropagation();
+                debugger;
                 this.snapToMarker([markerCords, {longitude: currentLocParsed.longitude, latitude: currentLocParsed.latitude}]);
                 this.props.setCurrentSpaceView(workspace._id);
               }}
@@ -252,7 +270,7 @@ export default class Map extends React.Component {
         <View style={styles.logout}>
           <MenuIconContainer />
         </View>
-        <RedoSearchButtonContainer getWorkspaces={this.getWorkspaces} />
+        <RedoSearchButtonContainer closeAllCallouts={this.closeAllCallouts} getWorkspaces={this.getWorkspaces} />
         <DrawerContainer />
         {this.renderSplashImage()}
       </View>
@@ -311,6 +329,7 @@ const styles = StyleSheet.create({
     height: 160,
     width: 200,
     backgroundColor: 'red',
+    zIndex: 10000
   },
   triangleView: {
     position: 'absolute',

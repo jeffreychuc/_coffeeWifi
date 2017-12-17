@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
   return {
     currentUserProfile: state.session.currentUserProfile,
     loggedIn: Boolean(state.session.currentUserProfile),
-    filterViewStatus: state.ui.filterViewStatus,
+    // filterViewStatus: state.ui.filterViewStatus,
     workspaces: state.db.workspaces
   };
 };
