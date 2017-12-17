@@ -29,6 +29,7 @@
     "react-native-sensitive-info": "^5.2.0",
     "react-native-sentry": "^0.31.0",
     "react-native-sliding-up-panel": "^1.1.12",
+    "react-native-star-rating": "^1.0.8",
     "react-native-triangle": "0.0.9",
     "react-native-vector-icons": "^4.4.2",
     "react-navigation": "^1.0.0-beta.21",

@@ -53,12 +53,12 @@ export default class Map extends React.Component {
         this.state.initialPosition = initialPosition;
 
         let location = [position.coords.latitude, position.coords.longitude];
-        // this.state.lastSearchLocation = {
-        //   latitude: position.coords.latitude,
-        //   longitude: position.coords.longitude,
-        //   longitudeDelta: DEFAULT_INTIAL_DELTA.longitudeDelta,
-        //   latitudeDelta: DEFAULT_INTIAL_DELTA.latitudeDelta
-        // };
+        this.state.lastSearchLocation = {
+          longitudeDelta: DEFAULT_INTIAL_DELTA.longitudeDelta,
+          latitudeDelta: DEFAULT_INTIAL_DELTA.latitudeDelta,
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude,
+        };
         this.props.fetchLocalWorkspaces(location, DEFAULT_INTIAL_DELTA.latitudeDelta * 69 / 2);
       },
       (error) => alert(error.message),
@@ -131,12 +131,12 @@ export default class Map extends React.Component {
   onRegionChange(region) {
     this.state.region = region;
     // logic to set state of render button
-    let test = !isEqual(this.state.lastSearchLocation, this.state.region);
     if (this.state.loading) {
       this.state.lastSearchLocation = this.state.region;
     }
+    //check if this.state.region is null or something
+    clearTimeout(this.renderSearchTimerID);
     if (!isEqual(this.state.lastSearchLocation, this.state.region) && !this.state.renderSearch ) {
-      clearTimeout(this.renderSearchTimerID);
       //change this to dispatch
       this.renderSearchTimerID = setTimeout(() => this.props.setRedoSearchButtonStatus(true), 1000);
     }
@@ -144,7 +144,7 @@ export default class Map extends React.Component {
 
   //markers are objects in an array with a lat/long
   snapToMarker(markers) {
-    debugger;
+    // debugger;
     this.mapRef.fitToCoordinates(markers, {
       edgePadding: DEFAULT_PADDING,
       animated: true,
@@ -153,8 +153,8 @@ export default class Map extends React.Component {
 
   closeAllCallouts()  {
     //super hacky but we cannot be sure which callout is open due to react-native-maps bug
-    console.log(this.markerRefs);
-    debugger;
+    // console.log(this.markerRefs);
+    // debugger;
     Object.values(this.markerRefs).forEach((marker) => {
       if (marker) {
         marker.hideCallout();
@@ -181,7 +181,7 @@ export default class Map extends React.Component {
           showsUserLocation={true}
           mapType={'mutedStandard'}
           userLocationAnnotationTitle={''}
-          region={this.state.currentSelectedPinRegion}
+          // region={this.state.currentSelectedPinRegion}
           showsCompass={false}
           onRegionChange={region => this.onRegionChange(region)}
           // calloutOffset={{ x: -8, y: 28 }}
@@ -193,7 +193,7 @@ export default class Map extends React.Component {
             let markerCords = {
               latitude: workspace.loc.coordinates[1],
               longitude: workspace.loc.coordinates[0],};
-            debugger;
+            // debugger;
             return (
             <MapView.Marker
               ref={(ref) => { this.markerRefs[workspace._id] = ref; }}
@@ -202,13 +202,12 @@ export default class Map extends React.Component {
               // calloutVisible={workspace._id === this.state.setCurrentSpaceView}
               onPress={(e) => {
                 e.stopPropagation();
-                debugger;
+                // debugger;
                 this.snapToMarker([markerCords, {longitude: currentLocParsed.longitude, latitude: currentLocParsed.latitude}]);
                 this.props.setCurrentSpaceView(workspace._id);
               }}
               // this.setState({currentSelectedPinRegion: { latitude: workspace.loc.coordinates[1], longitude: workspace.loc.coordinates[0], longitudeDelta: 0.01, latitudeDelta: 0.01}});
               key={shortid.generate()}
-
             >
               <MapView.Callout tooltip={true} style={styles.callout}>
                 <TouchableWithoutFeedback >
@@ -328,7 +327,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 160,
     width: 200,
-    backgroundColor: 'red',
+    backgroundColor: 'transparent',
     zIndex: 10000
   },
   triangleView: {

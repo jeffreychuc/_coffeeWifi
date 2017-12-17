@@ -56,18 +56,21 @@ export const fetchUserReviews = (user) => (
   })
 );
 
-export const fetchBusinessReviews = (business) => (
-  fetch(`https://coffeewifi.herokuapp.com/business/${business._id}/reviews`, {
+export const fetchBusinessReviews = (businessID) => (
+  fetch(`https://coffeewifi.herokuapp.com/business/${businessID}/reviews`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     }
    }).then( response => {
+    debugger;
     if (response.status === 200) {
+      console.log(response);
       return response.json();
     }
     else {
+      console.log('returning nothing?');
       return [];
     }
   })
@@ -94,8 +97,8 @@ export const postBusinessReview = (business, user, review) => (
    })
 );
 
-export const fetchBusinessStats = (business) => (
-  fetch(`https://coffeewifi.herokuapp.com/business/${business._id}/stats`, {
+export const fetchBusinessStats = (businessID) => (
+  fetch(`https://coffeewifi.herokuapp.com/business/${businessID}/stats`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',

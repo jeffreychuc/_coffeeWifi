@@ -4,14 +4,12 @@ import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base'
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 
-
 export default class redoSearchButton extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    console.log(this.props.redoSearchButtonStatus);
     return (!this.props.redoSearchButtonStatus) ? null : (
       <View style={styles.container}>
         <Button rounded

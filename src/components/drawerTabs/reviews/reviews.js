@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { Container, Header, Content, Card, CardItem, Body } from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-
+import StarRating from 'react-native-star-rating';
+import shortid from 'shortid';
 
 export default class Reviews extends React.Component {
   static navigationOptions = {
@@ -19,28 +20,51 @@ export default class Reviews extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchCurrentReviews(this.props.currentSpaceID).then(() => this.setState({loading: false}))
+    debugger;
+    this.props.fetchCurrentReviews(this.props.currentSpaceID).then((reviews)=> console.log(reviews)).then(() => this.setState({loading: false}))
   }
 
   renderReviews() {
+    let review = this.state.loading ? null : this.props.currentReviews[0];
+    debugger;
     return this.state.loading ? (<Text>Loading</Text>) : (
-
-      <View>
-        <Text>Reviews are loaded</Text>
-      </View>
-
+      <Content>
+        <View style={{padding: 10, borderColor: 'black', borderWidth: 1, borderRadius: 3}}>
+          <Text>Reviews for {}</Text>
+        </View>
+        {this.props.currentReviews.map((review) => (
+          <Card key={shortid.generate()} style={{height: 'auto'}}>
+            <CardItem header style={{}}>
+              <Text>{review.name}</Text>
+              <Text>{'    '}</Text>
+              <View style={{height: 15}}>
+                <StarRating
+                  disabled={true}
+                  maxStars={5}
+                  rating={review.stars}
+                  starSize={15}
+                />
+              </View>
+            </CardItem>
+            <CardItem>
+              <Body>
+                <Text>
+                  {review.content}
+                </Text>
+              </Body>
+            </CardItem>
+          </Card>
+        ))}
+      </Content>
     );
   }
 
   render() {
     console.log('reviews', this.props.currentSpaceID);
     return (
-      <View style={{backgroundColor: 'white', flex: 1}}>
-        <View style={{padding: 5, paddingTop: 10}}>
-          <Text> {this.props.currentSpaceID} </Text>
-          {this.renderReviews()}
-        </View>
-      </View>
+      <Container>
+        {this.renderReviews()}
+      </Container>
     );
   }
 }
