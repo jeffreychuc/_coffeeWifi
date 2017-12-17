@@ -1,6 +1,7 @@
 import * as dbAPIUtil from '../util/db_api_util';
 export const RECEIVE_WORKSPACES = 'RECEIVE_WORKSPACES';
 export const RECEIVE_CURRENT_REVIEWS = 'RECEIVE_CURRENT_REVIEWS';
+export const RECEIVE_CURRENT_STATS = 'RECEIVE_CURRENT_STATS';
 
 export const receiveWorkspaces = workspaces => ({
   type: RECEIVE_WORKSPACES,
@@ -21,6 +22,11 @@ export const fetchCurrentReviews = (businessID) => dispatch => (
   dbAPIUtil.fetchBusinessReviews(businessID).then(currentReviews => dispatch(receiveCurrentReviews(currentReviews)))
 );
 
-export const receiveBusinessStats = (businessID) => dispatch => (
-  dbAPIUtil.fetchBusinessStats(businessID).then(stats => dispatch(receiveBusinessStats(stats)))
-)
+export const receiveCurrentStats = currentStats => ({
+  type: RECEIVE_CURRENT_STATS,
+  currentStats
+});
+
+export const fetchCurrentStats = (businessID) => dispatch => (
+  dbAPIUtil.fetchBusinessStats(businessID).then(stats => dispatch(receiveCurrentStats(stats)))
+);

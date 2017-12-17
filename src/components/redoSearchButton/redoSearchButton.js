@@ -4,7 +4,6 @@ import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base'
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 
-
 export default class redoSearchButton extends React.Component {
   constructor(props) {
     super(props);

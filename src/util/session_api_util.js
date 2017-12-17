@@ -26,5 +26,5 @@ export const saveUserProfile = (currentUserProfile) => (
       'Content-Type': 'application/json',
     },
     body: currentUserProfile,
-   });
+   })
 );
