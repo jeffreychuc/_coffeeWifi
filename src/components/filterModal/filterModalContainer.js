@@ -7,6 +7,7 @@ import FilterModal from './filterModal';
 const mapStateToProps = (state) => {
   return {
     filterViewStatus: state.ui.filterViewStatus,
+    filterOutlets: state.ui.filterOutlets
   };
 };
 

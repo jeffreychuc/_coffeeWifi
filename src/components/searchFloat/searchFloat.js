@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
+import { View, StyleSheet, TextInput } from 'react-native';
+import { Container, Header, Item, Icon, Button, Text } from 'native-base';
 import { _initialUIState } from '../../reducers/ui';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
@@ -10,15 +10,14 @@ export default class SearchFloat extends React.Component {
   constructor(props) {
     super(props);
     this.handleFilter = this.handleFilter.bind(this);
-
-    this.state = _initialUIState;
+    this.state = {
+      filterName: undefined,
+    };
   }
 
   componentWillReceiveProps(nextProps)  {
-
-    console.log('nextProps', nextProps);
-    if (!isEqual(this.state, nextProps))  {
-      this.setState(merge({}, this.state, nextProps));
+    if (!isEqual(this.state.filterName, nextProps.filterName))  {
+      this.setState(merge({}, this.state, {filterName: nextProps.filterName}));
     }
   }
 
@@ -29,9 +28,16 @@ export default class SearchFloat extends React.Component {
   render() {
     return (
         <View style={styles.container}rounded>
-          <Icon name='ios-search' style={{fontSize: 17}}/>
+          <Icon name='ios-search' style={{fontSize: 17, marginRight: 10}}/>
           <View style={styles.searchFloatView}>
-            <Input style={styles.searchFloat} selectTextOnFocus={true} placeholder="Search" />
+            <TextInput
+              style={styles.searchFloat}
+              selectTextOnFocus={true}
+              placeholder="Search"
+              onChangeText={(filterName) => this.setState({filterName})}
+              value={this.state.filterName}
+              onBlur={() => this.props.setFilterName(this.state.filterName)}
+            />
           </View>
           <Icon name={this.props.filterIconStatus ? 'ios-funnel' : 'ios-funnel-outline'} onPress={() => this.handleFilter()} style={{fontSize: 17}}/>
         </View>

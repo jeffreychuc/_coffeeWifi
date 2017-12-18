@@ -16,7 +16,7 @@ export default class redoSearchButton extends React.Component {
           onPress={() => {
             this.props.closeAllCallouts();
             this.props.getWorkspaces();
-            this.props.setRedoSearchButtonStatus(false);
+            this.props.setRedoSearchButton(false);
           }}
           style={styles.searchButton}
         >

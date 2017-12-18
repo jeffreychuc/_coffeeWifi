@@ -11,7 +11,7 @@ export default class FilterModal extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderModal = this.renderModal.bind(this);
     this.state = {
-      filterModalDelay: false
+      filterModalDelay: false,
     };
   }
 

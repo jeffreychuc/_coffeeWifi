@@ -4,8 +4,8 @@
   "private": true,
   "devDependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "jest-expo": "23.0.0",
-    "react-test-renderer": "16.0.0"
+    "jest-expo": "24.0.0",
+    "react-test-renderer": "16.2.0"
   },
   "scripts": {
     "start": "react-native start",
@@ -17,7 +17,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@mapbox/polyline": "^0.2.0",
     "haversine": "^1.1.0",
     "native-base": "^2.3.5",
     "react": "^16.2.0",
@@ -27,7 +26,7 @@
     "react-native-dismiss-keyboard": "^1.0.0",
     "react-native-maps": "^0.19.0",
     "react-native-sensitive-info": "^5.2.0",
-    "react-native-sentry": "^0.31.0",
+    "react-native-sentry": "^0.32.0",
     "react-native-sliding-up-panel": "^1.1.12",
     "react-native-star-rating": "^1.0.8",
     "react-native-triangle": "0.0.9",
@@ -38,6 +37,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "rn-sliding-up-panel": "^1.1.7",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "lottie-react-native": "^2.3.1"
   }
 }

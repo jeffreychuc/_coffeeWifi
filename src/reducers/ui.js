@@ -1,12 +1,21 @@
 import merge from 'lodash/merge';
-import { FILTER_ICON_STATUS, FILTER_VIEW_STATUS, DRAWER_VIEW_STATUS, CURRENT_SPACE_ID, REDOSEARCH_BUTTON_STATUS } from '../actions/ui_actions';
+import { FILTER_ICON_STATUS,
+         FILTER_VIEW_STATUS,
+         DRAWER_VIEW_STATUS,
+         CURRENT_SPACE_ID,
+         REDOSEARCH_BUTTON_STATUS,
+         CURRENT_FILTERS,
+         FILTER_NAME
+        } from '../actions/ui_actions';
 
 export const _initialUIState = {
   filterIconStatus: false,
   filterViewStatus: false,
   drawerViewStatus: false,
   redoSearchButtonStatus: false,
-  currentSpaceID: null
+  currentSpaceID: null,
+  filterName: undefined,
+  filterOutlets: undefined
 };
 
 const uiReducer = (state = _initialUIState, action) => {
@@ -22,6 +31,8 @@ const uiReducer = (state = _initialUIState, action) => {
       return merge({}, state, {currentSpaceID: action.currentSpaceID});
     case REDOSEARCH_BUTTON_STATUS:
       return merge({}, state, {redoSearchButtonStatus: action.redoSearchButtonStatus});
+    case FILTER_NAME:
+      return merge({}, state, {filterName: action.filterName});
     default:
       return state;
   }

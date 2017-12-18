@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Text } from 'react-native';
 import { Container, Header, View, Button, Icon, Fab } from 'native-base';
 export default class MenuIcon extends Component {
   constructor(props) {
@@ -19,14 +20,8 @@ export default class MenuIcon extends Component {
             position="bottomRight"
             onPress={() => this.setState({ active: !this.state.active })}>
             <Icon name="ios-settings" />
-            <Button style={{ backgroundColor: '#34A34F' }}>
-              <Icon name="logo-whatsapp" />
-            </Button>
             <Button onPress={() => this.props.logout()} style={{ backgroundColor: '#3B5998' }}>
               <Icon name="exit" />
-            </Button>
-            <Button disabled style={{ backgroundColor: '#DD5144' }}>
-              <Icon name="mail" />
             </Button>
           </Fab>
         </View>

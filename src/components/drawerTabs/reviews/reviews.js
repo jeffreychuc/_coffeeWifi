@@ -4,6 +4,7 @@ import { Container, Header, Content, Card, CardItem, Body } from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 import StarRating from 'react-native-star-rating';
 import shortid from 'shortid';
+import LottieView from 'lottie-react-native';
 
 export default class Reviews extends React.Component {
   static navigationOptions = {
@@ -20,14 +21,20 @@ export default class Reviews extends React.Component {
   }
 
   componentDidMount() {
-    debugger;
-    this.props.fetchCurrentReviews(this.props.currentSpaceID).then((reviews)=> console.log(reviews)).then(() => this.setState({loading: false}))
+    this.animation.play();
+    this.props.fetchCurrentReviews(this.props.currentSpaceID).then(() => setTimeout(() => this.setState({loading: false}), 500));
   }
 
   renderReviews() {
-    let review = this.state.loading ? null : this.props.currentReviews[0];
-    debugger;
-    return this.state.loading ? (<Text>Loading</Text>) : (
+    return this.state.loading ? (
+        <LottieView
+          ref={animation => {
+            this.animation = animation;
+          }}
+          source={require('../../../animations/drawerLoading.json')}
+          loop={true}
+        />
+    ) : (
       <Content>
         <View style={{padding: 10, borderColor: 'black', borderWidth: 1, borderRadius: 3}}>
           <Text>Reviews for {}</Text>

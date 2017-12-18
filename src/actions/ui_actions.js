@@ -3,6 +3,8 @@ export const FILTER_VIEW_STATUS = 'FILTER_VIEW_STATUS';
 export const DRAWER_VIEW_STATUS = 'DRAWER_VIEW_STATUS';
 export const CURRENT_SPACE_ID = 'CURRENT_SPACE_ID';
 export const REDOSEARCH_BUTTON_STATUS = 'REDOSEARCH_BUTTON_STATUS';
+export const CURRENT_FILTERS = 'CURRENT_FILTERS';
+export const FILTER_NAME = 'FILTER_NAME';
 
 export const setFilterStatus = (filterIconStatus) => ({
   type: FILTER_ICON_STATUS,
@@ -44,3 +46,25 @@ export const setRedoSearchButtonStatus = (redoSearchButtonStatus) => ({
   type: REDOSEARCH_BUTTON_STATUS,
   redoSearchButtonStatus
 });
+
+export const setRedoSearchButton = (redoSearchButtonStatus) => (dispatch) => (
+  dispatch(setRedoSearchButtonStatus(redoSearchButtonStatus)
+));
+
+export const setCurrentFilterValues = (currentFilters) => ({
+  type: CURRENT_FILTERS,
+  currentFilters
+});
+
+export const setCurrentFilters = (currentFilters) => (dispatch) => (
+  dispatch(setCurrentFilterValues(currentFilters))
+);
+
+export const setFilterNameValue = (filterName) => ({
+  type: FILTER_NAME,
+  filterName
+});
+
+export const setFilterName = (filterName) => (dispatch) => (
+  dispatch(setFilterNameValue(filterName))
+);

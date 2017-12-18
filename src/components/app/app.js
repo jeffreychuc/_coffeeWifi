@@ -23,18 +23,10 @@ export default class App extends React.Component {
       sharedPreferencesName: 'accessToken',
       keychainService: 'com.rootuser.coffeewifi'
       }).then(accessToken => {
-        // debugger;
-        console.log(accessToken);
           if (accessToken) {
             this.props.getUserProfile(accessToken)
             .then(currentUserProfile => {
               this.setState({ currentUserProfile: currentUserProfile.currentUserProfile });
-              //SAVE currentUserProfile.currentUserProfile object
-
-              // SessionAPIUtil.saveUserProfile(currentUserProfile.currentUserProfile);
-
-
-
               }
             );
           }
