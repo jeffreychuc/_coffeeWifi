@@ -3,7 +3,6 @@ import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-nati
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-
 export default class Orders extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Order Food',

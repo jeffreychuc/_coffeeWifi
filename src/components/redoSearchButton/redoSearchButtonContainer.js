@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import RedoSearchButton from './redoSearchButton';
-import { setRedoSearchButtonStatus } from '../../actions/ui_actions';
+import { setRedoSearchButton } from '../../actions/ui_actions';
 
 
 const mapStateToProps = (state) => {
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setRedoSearchButtonStatus: (redoSearchButtonStatus) => dispatch(setRedoSearchButtonStatus(redoSearchButtonStatus))
+    setRedoSearchButton: (redoSearchButtonStatus) => dispatch(setRedoSearchButton(redoSearchButtonStatus))
   };
 };
 

@@ -4,8 +4,7 @@ import { Right, Left, Container, Header, Content, Card, CardItem, Body } from 'n
 import Icon from 'react-native-vector-icons/Ionicons';
 import StarRating from 'react-native-star-rating';
 import shortid from 'shortid';
-
-
+import LottieView from 'lottie-react-native';
 
 export default class Stats extends React.Component {
   static navigationOptions = {
@@ -22,12 +21,21 @@ export default class Stats extends React.Component {
   }
 
   componentDidMount() {
+    this.animation.play();
     this.props.fetchCurrentStats(this.props.currentSpaceID).then(() => this.setState({loading: false}))
   }
 
   renderStats() {
     console.log(this.props.currentStats);
-    return this.state.loading ? (<Text>Loading</Text>) : (
+    return this.state.loading ? (
+      <LottieView
+          ref={animation => {
+            this.animation = animation;
+          }}
+          source={require('../../../animations/drawerLoading.json')}
+          loop={true}
+      />
+    ) : (
       <Content>
         <View style={{padding: 10, borderColor: 'black', borderWidth: 1, borderRadius: 3}}>
           <Text>Reviews for {}</Text>

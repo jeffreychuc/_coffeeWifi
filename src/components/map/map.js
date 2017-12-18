@@ -16,6 +16,8 @@ import shortid from 'shortid';
 import isEqual from 'lodash/isEqual';
 import { StyleSheet, Text, View, Platform, Alert, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
 import { Button } from 'native-base';
+import LottieView from 'lottie-react-native';
+
 
 const DEFAULT_PADDING = { top: 300, right: 100, bottom: 75, left: 100 };
 const DEFAULT_INTIAL_DELTA = {longitudeDelta: 0.02000000049591222, latitudeDelta: 0.02811415461493283};
@@ -28,6 +30,7 @@ export default class Map extends React.Component {
     this.handleDrawer = this.handleDrawer.bind(this);
     this.getWorkspaces = this.getWorkspaces.bind(this);
     this.closeAllCallouts = this.closeAllCallouts.bind(this);
+    // init empty object so I can key in
     this.markerRefs = {};
     // this.renderRedoSearchButton = this.renderRedoSearchButton.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
@@ -42,7 +45,8 @@ export default class Map extends React.Component {
       currentSelectedPinRegion: null,
       lastSearchLocation: null,
       workspaces: [],
-      renderSearch: false
+      renderSearch: false,
+      fadeDelay: true
     };
   }
 
@@ -71,20 +75,9 @@ export default class Map extends React.Component {
       this.state.lastPosition = lastPosition;
     }, (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
-    setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(300).then(() => this.setState({loading: false})) : null;}, 350);
-  }
-
-  componentWillReceiveProps(nextProps)  {
-    // if (nextProps.filterViewStatus)  {
-    //   this.setState({filterModalDelay: true});
-    // }
-    // else  {
-    //   setTimeout(() => this.setState({filterModalDelay: false}), 400);
-    // }
-    // if (!isEqual(this.state.workspaces, nextProps.workspaces)) {
-    //   console.log('getting new props, setting state for workspaces');
-    //   this.setState({workspaces: nextProps.workspaces});
-    // }
+    // setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(300).then(() => this.setState({loading: false})) : null;}, 350);
+    this.animation.play();
+    setTimeout(() => this.state.loading ? this.setState({loading: false}) : null, 2500);
   }
 
   componentWillUnmount() {
@@ -138,7 +131,7 @@ export default class Map extends React.Component {
     clearTimeout(this.renderSearchTimerID);
     if (!isEqual(this.state.lastSearchLocation, this.state.region) && !this.state.renderSearch ) {
       //change this to dispatch
-      this.renderSearchTimerID = setTimeout(() => this.props.setRedoSearchButtonStatus(true), 1000);
+      this.renderSearchTimerID = setTimeout(() => this.props.setRedoSearchButton(true), 1000);
     }
   }
 
@@ -153,8 +146,6 @@ export default class Map extends React.Component {
 
   closeAllCallouts()  {
     //super hacky but we cannot be sure which callout is open due to react-native-maps bug
-    // console.log(this.markerRefs);
-    // debugger;
     Object.values(this.markerRefs).forEach((marker) => {
       if (marker) {
         marker.hideCallout();
@@ -193,39 +184,43 @@ export default class Map extends React.Component {
             let markerCords = {
               latitude: workspace.loc.coordinates[1],
               longitude: workspace.loc.coordinates[0],};
-            // debugger;
             return (
-            <MapView.Marker
-              ref={(ref) => { this.markerRefs[workspace._id] = ref; }}
-              coordinate={markerCords}
-              onCalloutPress={(e) => this.handleDrawer(e)}
-              // calloutVisible={workspace._id === this.state.setCurrentSpaceView}
-              onPress={(e) => {
-                e.stopPropagation();
-                // debugger;
-                this.snapToMarker([markerCords, {longitude: currentLocParsed.longitude, latitude: currentLocParsed.latitude}]);
-                this.props.setCurrentSpaceView(workspace._id);
-              }}
-              // this.setState({currentSelectedPinRegion: { latitude: workspace.loc.coordinates[1], longitude: workspace.loc.coordinates[0], longitudeDelta: 0.01, latitudeDelta: 0.01}});
-              key={shortid.generate()}
-            >
-              <MapView.Callout tooltip={true} style={styles.callout}>
-                <TouchableWithoutFeedback >
-                  <View>
-                    <MapCustomCallout name={workspace.name} style={{zIndex: 10}} currLatLong={this.state.lastPosition} distanceTo={this.calcDistanceTo({latitude: workspace.loc.coordinates[1],
-                    longitude: workspace.loc.coordinates[0]})} />
-                  </View>
-                </TouchableWithoutFeedback>
-                {/* <View style={styles.triangleView}>
-                  <Triangle
-                      width={30}
-                      height={10}
-                      color={'#D80016'}
-                      direction={'down'}
-                  />
-                </View> */}
-              </MapView.Callout>
-            </MapView.Marker>
+              <MapView.Marker
+                ref={(ref) => { this.markerRefs[workspace._id] = ref; }}
+                coordinate={markerCords}
+                onCalloutPress={(e) => this.handleDrawer(e)}
+                onPress={(e) => {
+                  e.stopPropagation();
+                  this.snapToMarker([markerCords, {longitude: currentLocParsed.longitude, latitude: currentLocParsed.latitude}]);
+                  this.props.setCurrentSpaceView(workspace._id);
+                }}
+                key={shortid.generate()}
+              >
+                <MapView.Callout tooltip={true} style={styles.callout}>
+                  <TouchableWithoutFeedback >
+                    <View>
+                      <MapCustomCallout
+                        name={workspace.name} style={{zIndex: 10}}
+                        currLatLong={this.state.lastPosition}
+                        distanceTo={
+                          this.calcDistanceTo({
+                            latitude: workspace.loc.coordinates[1],
+                            longitude: workspace.loc.coordinates[0]
+                          })
+                        }
+                      />
+                    </View>
+                  </TouchableWithoutFeedback>
+                  {/* <View style={styles.triangleView}>
+                    <Triangle
+                        width={30}
+                        height={10}
+                        color={'#D80016'}
+                        direction={'down'}
+                    />
+                  </View> */}
+                </MapView.Callout>
+              </MapView.Marker>
             );
           })}
         </MapView>
@@ -236,24 +231,24 @@ export default class Map extends React.Component {
     }
   }
 
-  // renderFilterModal() {
-  //   //need to handle animation out somehow
-  //   return this.state.filterModalDelay ? (
-  //     <Animatable.View animation={this.props.filterViewStatus ?  'fadeIn' : 'fadeOut' } duration={300} style={styles.filterModal}>
-  //       <FilterModalContainer />
-  //     </Animatable.View>
-  //   ) : null;
-  // }
-
   renderSplashImage() {
-    return this.state.loading ?
-        (<Animatable.View animate={'fadeOut'} ref='splash' useNativeDriver style={styles.splash}>
-          <Text style={{color: 'white'}}> Loading... </Text>
-         </Animatable.View>
+    // fade doesnt work :()
+    if (!this.state.loading && this.state.fadeDelay) {
+      setTimeout(() => this.setState({ fadeDelay: false}), 1000);
+    }
+    return this.state.fadeDelay ? (
+      <Animatable.View style={styles.splash} animate={this.state.loading ? 'fadeIn' : 'fadeOut'}>
+        <LottieView
+          ref={animation => {
+            this.animation = animation;
+          }}
+          source={require('../../animations/splashLoading.json')}
+          loop={true}
+        />
+      </Animatable.View>
     ) : null;
   }
 
-  // 37.7988539,-122.4016086 //fora thinkspace
   render() {
     let parsedState = JSON.parse(this.state.lastPosition);
     return (
