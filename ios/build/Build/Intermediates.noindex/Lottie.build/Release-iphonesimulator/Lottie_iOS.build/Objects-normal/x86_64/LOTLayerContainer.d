@@ -1,0 +1,25 @@
+dependencies: \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/AnimatableLayers/LOTLayerContainer.m \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Intermediates.noindex/Lottie.build/Release-iphonesimulator/Lottie_iOS.build/module.modulemap \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/AnimatableLayers/LOTLayerContainer.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/MacCompatability/LOTPlatformCompat.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/Models/LOTLayer.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/AnimatableProperties/LOTKeyframe.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/AnimatableProperties/LOTBezierData.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/Models/LOTLayerGroup.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/RenderSystem/InterpolatorNodes/LOTTransformInterpolator.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/RenderSystem/InterpolatorNodes/LOTNumberInterpolator.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/RenderSystem/InterpolatorNodes/LOTValueInterpolator.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/RenderSystem/InterpolatorNodes/LOTPointInterpolator.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/RenderSystem/InterpolatorNodes/LOTSizeInterpolator.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/Extensions/CGGeometry+LOTAdditions.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/RenderSystem/RenderNodes/LOTRenderGroup.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/RenderSystem/LOTRenderNode.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/RenderSystem/LOTAnimatorNode.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/Extensions/LOTBezierPath.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/Extensions/LOTHelpers.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/Extensions/UIColor+Expanded.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/AnimatableLayers/LOTMaskContainer.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/Models/LOTMask.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/Models/LOTAsset.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/lottie-ios/lottie-ios/Classes/PublicHeaders/LOTCacheProvider.h

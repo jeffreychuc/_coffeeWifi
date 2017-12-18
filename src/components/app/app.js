@@ -4,6 +4,8 @@ import MapViewContainer from '../map/mapViewContainer';
 import SInfo from 'react-native-sensitive-info';
 import Auth0 from 'react-native-auth0';
 import * as SessionAPIUtil from '../../util/session_api_util';
+import LottieView from 'lottie-react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 var credentials = require('../../../auth0-credentials');
@@ -31,6 +33,7 @@ export default class App extends React.Component {
             );
           }
       });
+    this.animation.play();
   }
 
   handleLogin() {
@@ -62,15 +65,29 @@ export default class App extends React.Component {
     let loggedIn = this.props.loggedIn;
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>_coffeeWifi - Login</Text>
+        {/* <Text style={styles.header}>_coffeeWifi - Login</Text>
         <Text>
           You are {loggedIn ? '' : 'not '}logged in.
-        </Text>
+        </Text> */}
+        <View style={{flex: 1, flexDirection: 'row', height: 50}}>
+          <View>
+            <Icon name='coffee' style={{fontSize: 40}}/>
+          </View>
+          <View>
+          <LottieView
+              ref={animation => {
+                this.animation = animation;
+              }}
+              source={require('../../animations/loginRouter.json')}
+              loop={true}
+            />
+          </View>
         <Button
           onPress={loggedIn ? this.handleLogout : this.handleLogin}
           title={loggedIn ? 'Log Out' : 'Log In'}
         />
-        <Text> {this.state.currentUserProfile ? JSON.stringify(this.state.currentUserProfile) : false} </Text>
+        {/* <Text> {this.state.currentUserProfile ? JSON.stringify(this.state.currentUserProfile) : false} </Text> */}
+      </View>
       </View>
     );
   }
@@ -92,5 +109,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row'
   },
 });

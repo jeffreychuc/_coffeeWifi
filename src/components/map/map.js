@@ -75,6 +75,7 @@ export default class Map extends React.Component {
       this.state.lastPosition = lastPosition;
     }, (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
+    // maybe should set above to default SF location?
     // setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(300).then(() => this.setState({loading: false})) : null;}, 350);
     this.animation.play();
     setTimeout(() => this.state.loading ? this.setState({loading: false}) : null, 2500);
@@ -130,14 +131,12 @@ export default class Map extends React.Component {
     //check if this.state.region is null or something
     clearTimeout(this.renderSearchTimerID);
     if (!isEqual(this.state.lastSearchLocation, this.state.region) && !this.state.renderSearch ) {
-      //change this to dispatch
       this.renderSearchTimerID = setTimeout(() => this.props.setRedoSearchButton(true), 1000);
     }
   }
 
   //markers are objects in an array with a lat/long
   snapToMarker(markers) {
-    // debugger;
     this.mapRef.fitToCoordinates(markers, {
       edgePadding: DEFAULT_PADDING,
       animated: true,
@@ -172,11 +171,8 @@ export default class Map extends React.Component {
           showsUserLocation={true}
           mapType={'mutedStandard'}
           userLocationAnnotationTitle={''}
-          // region={this.state.currentSelectedPinRegion}
           showsCompass={false}
           onRegionChange={region => this.onRegionChange(region)}
-          // calloutOffset={{ x: -8, y: 28 }}
-          // calloutAnchor={{ x: 0.5, y: 0.4 }}
         >
           {this.props.workspaces.map(workspace => {
             // console.log(workspace.loc.coordinates[1], workspace.loc.coordinates[0]);
@@ -233,9 +229,9 @@ export default class Map extends React.Component {
 
   renderSplashImage() {
     // fade doesnt work :()
-    // if (!this.state.loading && this.state.fadeDelay) {
-    //   setTimeout(() => this.setState({ fadeDelay: false}), 1000);
-    // }
+    if (!this.state.loading && this.state.fadeDelay) {
+      setTimeout(() => this.setState({ fadeDelay: false}), 1000);
+    }
     return this.state.fadeDelay ? (
       // <Animatable.View style={styles.splash} animate={this.state.loading ? 'fadeIn' : 'fadeOut'}>
         <LottieView

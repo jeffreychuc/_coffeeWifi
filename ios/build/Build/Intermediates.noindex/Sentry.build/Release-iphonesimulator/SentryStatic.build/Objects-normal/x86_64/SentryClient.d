@@ -1,0 +1,23 @@
+dependencies: \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/SentryClient.m \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryClient.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryDefines.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryClient+Internal.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryDebugMeta.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentrySerializable.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryLog.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryDsn.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryError.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryUser.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryQueueableRequestManager.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryEvent.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryNSURLRequest.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryKSCrashInstallation.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/KSCrash/KSCrash.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/KSCrash/KSCrashReportWriter.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/KSCrash/KSCrashReportFilter.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/KSCrash/KSCrashMonitorType.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/KSCrash/KSCrashInstallation.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryBreadcrumbStore.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryFileManager.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/node_modules/react-native-sentry/ios/Sentry/Sources/Sentry/include/SentryBreadcrumbTracker.h
