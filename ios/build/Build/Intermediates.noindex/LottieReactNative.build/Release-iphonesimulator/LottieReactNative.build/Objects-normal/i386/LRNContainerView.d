@@ -5,15 +5,16 @@ dependencies: \
   /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/React/RCTBorderStyle.h \
   /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/React/RCTComponent.h \
   /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/React/RCTPointerEvents.h \
-  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/Lottie/Lottie.h \
-  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/Lottie/LOTAnimationTransitionController.h \
-  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/Lottie/LOTAnimatedSwitch.h \
-  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/Lottie/LOTAnimatedControl.h \
-  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/Lottie/LOTCacheProvider.h \
-  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/Lottie/LOTAnimationView.h \
-  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/Lottie/LOTAnimationView_Compat.h \
-  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/Lottie/LOTComposition.h \
-  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/Lottie/LOTAnimationCache.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/Lottie.framework/Modules/module.modulemap \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/Lottie.framework/Headers/LOTAnimationCache.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/Lottie.framework/Headers/LOTComposition.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/Lottie.framework/Headers/LOTAnimationView_Compat.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/Lottie.framework/Headers/LOTAnimationView.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/Lottie.framework/Headers/LOTCacheProvider.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/Lottie.framework/Headers/LOTAnimatedControl.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/Lottie.framework/Headers/LOTAnimatedSwitch.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/Lottie.framework/Headers/LOTAnimationTransitionController.h \
+  /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/Lottie.framework/Headers/Lottie.h \
   /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/React/UIView+React.h \
   /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/yoga/YGEnums.h \
   /Users/JeffreyChuc/Desktop/flex/_coffeeWifi/ios/build/Build/Products/Release-iphonesimulator/include/yoga/YGMacros.h
