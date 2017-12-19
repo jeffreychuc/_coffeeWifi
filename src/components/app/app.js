@@ -84,7 +84,7 @@ export default class App extends React.Component {
         // </Text> */}
 
   renderSplash() {
-    let loggedIn = this.props.loggedIn;
+    let loggedIn = true;
     return (
       <View style={styles.container}>
           <View style={{flexDirection: 'row'}}>
