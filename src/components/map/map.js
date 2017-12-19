@@ -141,7 +141,7 @@ export default class Map extends React.Component {
     });
   }
 
-  boundFilterWorkspaces(modalFilters) {
+  boundFilterWorkspaces(modalFilters={NONE: 'NONE'}) {
     let currLat = this.state.region.latitude;
     let currLong = this.state.region.longitude;
     let latDelta = this.state.region.latitudeDelta;
