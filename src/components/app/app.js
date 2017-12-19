@@ -84,7 +84,7 @@ export default class App extends React.Component {
         // </Text> */}
 
   renderSplash() {
-    let loggedIn = true;
+    // let loggedIn = true;
     return (
       <View style={styles.container}>
           <View style={{flexDirection: 'row'}}>
@@ -99,8 +99,8 @@ export default class App extends React.Component {
           </View>
           <View style={{position: 'absolute', bottom: 125}}>
             <Button
-                onPress={loggedIn ? this.handleLogout : this.handleLogin}
-                title={loggedIn ? 'Log Out' : 'Log In/Sign Up'}
+                onPress={/*loggedIn ? this.handleLogout : */this.handleLogin}
+                title={/*loggedIn ? 'Log Out' : */'Log In/Sign Up'}
                 color={'gray'}
             />
           </View>
@@ -108,8 +108,8 @@ export default class App extends React.Component {
     );
   }
   render() {
-    let loggedIn = this.props.loggedIn;
-    // let loggedIn = true;
+    // let loggedIn = this.props.loggedIn;
+    let loggedIn = true;
     if (loggedIn) {
       return <MapViewContainer />;
     }

@@ -52,30 +52,39 @@ export default class Map extends React.Component {
   }
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        let initialPosition = JSON.stringify(position);
-        this.state.initialPosition = initialPosition;
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     let initialPosition = JSON.stringify(position);
+    //     this.state.initialPosition = initialPosition;
 
-        let location = [position.coords.latitude, position.coords.longitude];
-        this.state.lastSearchLocation = {
-          longitudeDelta: DEFAULT_INTIAL_DELTA.longitudeDelta,
-          latitudeDelta: DEFAULT_INTIAL_DELTA.latitudeDelta,
-          longitude: position.coords.longitude,
-          latitude: position.coords.latitude,
-        };
-        this.props.fetchLocalWorkspaces(location, DEFAULT_INTIAL_DELTA.latitudeDelta * 69 / 2);
-      },
-      (error) => alert(error.message),
-      {enableHighAccuracy: false, timeout: 10000, maximumAge: 1000}
-    );
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      let lastPosition = JSON.stringify(position);
-      this.state.lastPosition = lastPosition;
-    }, (error) => alert(error.message),
-    {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
-    // maybe should set above to default SF location?
-    // setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(300).then(() => this.setState({loading: false})) : null;}, 350);
+    //     let location = [position.coords.latitude, position.coords.longitude];
+    //     this.state.lastSearchLocation = {
+    //       longitudeDelta: DEFAULT_INTIAL_DELTA.longitudeDelta,
+    //       latitudeDelta: DEFAULT_INTIAL_DELTA.latitudeDelta,
+    //       longitude: position.coords.longitude,
+    //       latitude: position.coords.latitude,
+    //     };
+    //     this.props.fetchLocalWorkspaces(location, DEFAULT_INTIAL_DELTA.latitudeDelta * 69 / 2);
+    //   },
+    //   (error) => alert(error.message),
+    //   {enableHighAccuracy: false, timeout: 10000, maximumAge: 1000}
+    // );
+    // this.watchID = navigator.geolocation.watchPosition((position) => {
+    //   let lastPosition = JSON.stringify(position);
+    //   this.state.lastPosition = lastPosition;
+    // }, (error) => alert(error.message),
+    // {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
+    // // maybe should set above to default SF location?
+    // // setTimeout(() => {this.state.loading ? this.refs.splash.fadeOut(300).then(() => this.setState({loading: false})) : null;}, 350);
+
+    //Hard coded demo location data
+    this.state.lastSearchLocation = {longitudeDelta: 0.02000000049591222, latitudeDelta: 0.02811415461493283, longitude: -122.406417, latitude: 37.785};
+    this.state.initialPosition = JSON.stringify({"coords":{"speed":-1,"longitude":-122.406417,"latitude":37.785,"accuracy":5,"heading":-1,"altitude":0,"altitudeAccuracy":-1},"timestamp":1513653945936.074});
+    this.state.lastPosition = JSON.stringify({"coords":{"speed":-1,"longitude":-122.406417,"latitude":37.785,"accuracy":5,"heading":-1,"altitude":0,"altitudeAccuracy":-1},"timestamp":1513653945936.074});
+    let location = [this.state.lastSearchLocation.latitude, this.state.lastSearchLocation.longitude];
+    this.props.fetchLocalWorkspaces(location, DEFAULT_INTIAL_DELTA.latitudeDelta * 69 / 2);
+
+
     this.animation.play();
     setTimeout(() => this.state.loading ? this.setState({loading: false}) : null, 2500);
   }
@@ -141,13 +150,18 @@ export default class Map extends React.Component {
     });
   }
 
-  boundFilterWorkspaces(modalFilters = {}) {
+  boundFilterWorkspaces(modalFilters = {NONE: 'NONE'}) {
     let currLat = this.state.region.latitude;
     let currLong = this.state.region.longitude;
     let latDelta = this.state.region.latitudeDelta;
     let longDelta = this.state.region.longitudeDelta;
     let radius = Math.max(latDelta, longDelta) * 69/4;
-
+    // debugger;
+    // console.log('doing search with, ', {name: modalFilters.filterName ? modalFilters.filterName : this.props.filterName,
+    //   radius: radius,
+    //   longitude: currLong,
+    //   latitude: currLat,
+    //   outlets: modalFilters.filterOutlet ? modalFilters.filterOutlet : this.props.filterOutler});
     this.props.filterWorkspaces({
       name: modalFilters.filterName ? modalFilters.filterName : this.props.filterName,
       radius: radius,
