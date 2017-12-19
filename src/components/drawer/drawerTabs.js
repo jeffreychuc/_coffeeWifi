@@ -19,6 +19,7 @@ export default TabNavigator({
   lazy: true,
   tabBarPosition: 'top',
   animationEnabled: true,
+  initialRouteName: 'Reviews',
   tabBarOptions: {
     activeTintColor: '#e91e63',
     style: {

@@ -9,8 +9,7 @@ export const receiveWorkspaces = workspaces => ({
 });
 
 export const fetchLocalWorkspaces = (location, radius) => dispatch => {
-  console.log('location, radius');
-  return dbAPIUtil.fetchLocalWorkspaces(location, radius).then(workspaces => dispatch(receiveWorkspaces(workspaces)));
+  return dbAPIUtil.fetchLocalWorkspaces(location, radius).then((data) => {debugger; return data;}).then(workspaces => dispatch(receiveWorkspaces(workspaces)));
 };
 
 export const receiveCurrentReviews = currentReviews => ({
@@ -29,4 +28,8 @@ export const receiveCurrentStats = currentStats => ({
 
 export const fetchCurrentStats = (businessID) => dispatch => (
   dbAPIUtil.fetchBusinessStats(businessID).then(stats => dispatch(receiveCurrentStats(stats)))
+);
+
+export const filterWorkspaces = (filters) => dispatch => (
+  dbAPIUtil.filterWorkspaces(filters).then((data) => {debugger; return data;}).then(workspaces => dispatch(receiveWorkspaces(workspaces)))
 );

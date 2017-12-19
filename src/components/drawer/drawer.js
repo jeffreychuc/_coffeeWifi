@@ -14,7 +14,6 @@ export default class drawer extends React.Component {
   }
 
   render() {
-    console.log('in render drawer view, drawer view is currently, ', this.props.drawerViewStatus);
     return (
       <SlidingUpPanel
       visible={this.props.drawerViewStatus}

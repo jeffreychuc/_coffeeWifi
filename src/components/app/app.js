@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
+import { Left, Right } from 'native-base';
 import MapViewContainer from '../map/mapViewContainer';
 import SInfo from 'react-native-sensitive-info';
 import Auth0 from 'react-native-auth0';
 import * as SessionAPIUtil from '../../util/session_api_util';
 import LottieView from 'lottie-react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Col, Row, Grid } from "react-native-easy-grid";
+import { Container } from 'native-base';
 
 
 var credentials = require('../../../auth0-credentials');
@@ -16,11 +19,13 @@ export default class App extends React.Component {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.renderWifi = this.renderWifi.bind(this);
     this.state = { currentUserProfile: null };
   }
 
   componentDidMount() {
     //getting access token for user if it exists in keychain
+    // this.animation.play();
     SInfo.getItem('currentUser', {
       sharedPreferencesName: 'accessToken',
       keychainService: 'com.rootuser.coffeewifi'
@@ -33,7 +38,6 @@ export default class App extends React.Component {
             );
           }
       });
-    this.animation.play();
   }
 
   handleLogin() {
@@ -61,33 +65,45 @@ export default class App extends React.Component {
     );
   }
 
+  renderWifi()  {
+    return (
+      <LottieView
+        ref={animation => {
+          this.animation = animation;
+        }}
+        source={require('../../animations/loginRouter.json')}
+        loop={true}
+        style={{width: 50, height: 50}}
+      />
+    );
+  }
+
+        // {/* <Text style={styles.header}>_coffeeWifi - Login</Text>
+        // <Text>
+        //   You are {loggedIn ? '' : 'not '}logged in.
+        // </Text> */}
+
   renderSplash() {
     let loggedIn = this.props.loggedIn;
     return (
       <View style={styles.container}>
-        {/* <Text style={styles.header}>_coffeeWifi - Login</Text>
-        <Text>
-          You are {loggedIn ? '' : 'not '}logged in.
-        </Text> */}
-        <View style={{flex: 1, flexDirection: 'row', height: 50}}>
-          <View>
-            <Icon name='coffee' style={{fontSize: 40}}/>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{position:'relative', bottom: 5, height: 50, borderBottomWidth: 5, borderBottomColor: 'black', width: 50}}/>
+            <Text>     </Text>
+            <Icon name='coffee' size={50}/>
+            <Text>  </Text>
+            {/* <View> */}
+            {/* {this.renderWifi()} */}
+            <Icon name='wifi' size={50}/>
+            {/* </View> */}
           </View>
-          <View>
-          <LottieView
-              ref={animation => {
-                this.animation = animation;
-              }}
-              source={require('../../animations/loginRouter.json')}
-              loop={true}
+          <View style={{position: 'absolute', bottom: 125}}>
+            <Button
+                onPress={loggedIn ? this.handleLogout : this.handleLogin}
+                title={loggedIn ? 'Log Out' : 'Log In/Sign Up'}
+                color={'gray'}
             />
           </View>
-        <Button
-          onPress={loggedIn ? this.handleLogout : this.handleLogin}
-          title={loggedIn ? 'Log Out' : 'Log In'}
-        />
-        {/* <Text> {this.state.currentUserProfile ? JSON.stringify(this.state.currentUserProfile) : false} </Text> */}
-      </View>
       </View>
     );
   }
@@ -109,6 +125,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'column',
   },
 });

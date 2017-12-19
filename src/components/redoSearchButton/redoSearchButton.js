@@ -15,12 +15,12 @@ export default class redoSearchButton extends React.Component {
         <Button rounded
           onPress={() => {
             this.props.closeAllCallouts();
-            this.props.getWorkspaces();
             this.props.setRedoSearchButton(false);
+            this.props.boundFilterWorkspaces();
           }}
           style={styles.searchButton}
         >
-          <Text style={{fontSize: 15}}>Redo Search In This Area</Text>
+          <Text style={{fontSize: 15, fontWeight: 'bold'}}>Redo Search In This Area</Text>
         </Button>
       </View>
     );

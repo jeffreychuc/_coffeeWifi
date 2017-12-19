@@ -4,7 +4,7 @@ import { FILTER_ICON_STATUS,
          DRAWER_VIEW_STATUS,
          CURRENT_SPACE_ID,
          REDOSEARCH_BUTTON_STATUS,
-         CURRENT_FILTERS,
+         FILTER_OUTLET,
          FILTER_NAME
         } from '../actions/ui_actions';
 
@@ -33,6 +33,8 @@ const uiReducer = (state = _initialUIState, action) => {
       return merge({}, state, {redoSearchButtonStatus: action.redoSearchButtonStatus});
     case FILTER_NAME:
       return merge({}, state, {filterName: action.filterName});
+    case FILTER_OUTLET:
+      return merge({}, state, {filterOutlet: action.filterOutlet});
     default:
       return state;
   }

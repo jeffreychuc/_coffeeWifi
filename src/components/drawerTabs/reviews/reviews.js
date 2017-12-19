@@ -37,7 +37,7 @@ export default class Reviews extends React.Component {
     ) : (
       <Content>
         <View style={{padding: 10, borderColor: 'black', borderWidth: 1, borderRadius: 3}}>
-          <Text>Reviews for {}</Text>
+          <Text>          </Text>
         </View>
         {this.props.currentReviews.map((review) => (
           <Card key={shortid.generate()} style={{height: 'auto'}}>

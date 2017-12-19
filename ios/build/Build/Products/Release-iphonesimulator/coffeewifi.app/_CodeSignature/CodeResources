@@ -4,9 +4,45 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>AppIcon20x20@2x.png</key>
+		<data>
+		YzyP1+T07enDqSRPV4gAzJP2F0M=
+		</data>
+		<key>AppIcon20x20@3x.png</key>
+		<data>
+		rlU4wHSdFMqF2D4yjCm5mYwFrOI=
+		</data>
+		<key>AppIcon29x29.png</key>
+		<data>
+		q+g8DqWMRvgLUsBVSmD9heTYa44=
+		</data>
+		<key>AppIcon29x29@2x.png</key>
+		<data>
+		v80GA8vm2yAirrBR7nbG5BpT81w=
+		</data>
+		<key>AppIcon40x40@2x.png</key>
+		<data>
+		/AmLFkc1Sk86FTLC8bzTWJIsPGA=
+		</data>
+		<key>AppIcon40x40@3x.png</key>
+		<data>
+		ghFSZyQHAaYliAQX6w1R9G25+nM=
+		</data>
+		<key>AppIcon60x60@2x.png</key>
+		<data>
+		ghFSZyQHAaYliAQX6w1R9G25+nM=
+		</data>
+		<key>AppIcon60x60@3x.png</key>
+		<data>
+		VfewHsSrrxAG87CuTPs6sHoCKkk=
+		</data>
+		<key>Assets.car</key>
+		<data>
+		u+5IdLtXpOC/RBLlPt1v3cTtZmc=
+		</data>
 		<key>Base.lproj/LaunchScreen.nib</key>
 		<data>
-		snctt5ZepRohGOTV7QQQlHI+4fo=
+		Nba+3p75SN5+K4Szyd8XLTrEFu8=
 		</data>
 		<key>Entypo.ttf</key>
 		<data>
@@ -28,66 +64,29 @@
 		<data>
 		SyvObHkkk6SlcWtv7C2+/olJLD8=
 		</data>
-		<key>Frameworks/IDEBundleInjection.framework/IDEBundleInjection</key>
-		<data>
-		ooz0sIAaLKBGoFU5iKq8DR11NmY=
-		</data>
-		<key>Frameworks/IDEBundleInjection.framework/Info.plist</key>
-		<data>
-		R/knOPjsjrJNiVtUa2S4kYE749M=
-		</data>
-		<key>Frameworks/IDEBundleInjection.framework/_CodeSignature/CodeResources</key>
-		<data>
-		qcVgsOCxIzxwcNXLWXgRrNjnuT8=
-		</data>
-		<key>Frameworks/IDEBundleInjection.framework/version.plist</key>
-		<data>
-		K7jOt4uC+lqy/StneXlQVk21axY=
-		</data>
 		<key>Frameworks/Lottie.framework/Info.plist</key>
 		<data>
 		C9zuitgn+7CsDY/eDVRQeG0g3mM=
 		</data>
 		<key>Frameworks/Lottie.framework/Lottie</key>
 		<data>
-		blz2QrJjHvUqa4eL7jZyTVh77MI=
+		kQfxljmqOzjVmr1xohNZf6Ftbl8=
 		</data>
 		<key>Frameworks/Lottie.framework/_CodeSignature/CodeResources</key>
 		<data>
 		aCgATH77GbJq+eoYeVnj75KK9nE=
 		</data>
-		<key>Frameworks/XCTest.framework/Info.plist</key>
-		<data>
-		CYfyvPIGUR84QvCD7SuNDvG6Bxc=
-		</data>
-		<key>Frameworks/XCTest.framework/XCTest</key>
-		<data>
-		M3EBma1BpAxt7iGIjYcrm9BnNOc=
-		</data>
-		<key>Frameworks/XCTest.framework/_CodeSignature/CodeResources</key>
-		<data>
-		5EUn1qFgVTwSkfSLCubcLwgrx0c=
-		</data>
-		<key>Frameworks/XCTest.framework/en.lproj/InfoPlist.strings</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			TuBj57ZP6zBqcL9HttO2Rucaw9E=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Frameworks/XCTest.framework/version.plist</key>
-		<data>
-		Etc/8BPenX54rv1uBx24u4bnqTg=
-		</data>
 		<key>Info.plist</key>
 		<data>
-		OeyZBbNco9XQZhw31tqpFsqV0Ko=
+		yLM7XcIUmlsx+RmMEZ+IXlwYHcI=
 		</data>
 		<key>Ionicons.ttf</key>
 		<data>
 		D3lWcE/mG0nEHqGiIFEkD3AKK0Q=
+		</data>
+		<key>LaunchImage-700-568h@2x.png</key>
+		<data>
+		jUzAVDZErJq8r4xRQMYF5Kc4BgE=
 		</data>
 		<key>MaterialCommunityIcons.ttf</key>
 		<data>
@@ -104,26 +103,6 @@
 		<key>PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
-		</data>
-		<key>PlugIns/coffeewifiTests.xctest.dSYM/Contents/Info.plist</key>
-		<data>
-		HxfowAM9huGj5CNmP8zVRgB6mH4=
-		</data>
-		<key>PlugIns/coffeewifiTests.xctest.dSYM/Contents/Resources/DWARF/coffeewifiTests</key>
-		<data>
-		djHdAwhw5XXohZ1ky1ouDW0Ocwo=
-		</data>
-		<key>PlugIns/coffeewifiTests.xctest/Info.plist</key>
-		<data>
-		OLJ/jvbLHhrfFZlB7+hzdhrXTKk=
-		</data>
-		<key>PlugIns/coffeewifiTests.xctest/_CodeSignature/CodeResources</key>
-		<data>
-		uPlHKWFuIFF64UWImaoce474F1c=
-		</data>
-		<key>PlugIns/coffeewifiTests.xctest/coffeewifiTests</key>
-		<data>
-		BUT49Qa3+zm0eQ/xnuDP2VsS9ww=
 		</data>
 		<key>Roboto.ttf</key>
 		<data>
@@ -155,15 +134,15 @@
 		</data>
 		<key>main.jsbundle</key>
 		<data>
-		dEdSbzGdeOUCxT443akmFxYB1j8=
+		YRkGqY+IWNL26in2Xwrli1BWGfA=
 		</data>
 		<key>main.jsbundle.map</key>
 		<data>
-		rJyOxHy+RXN2qLeyJDWJffnr7Ho=
+		Zxog1Txyf4m3jod4+M1A2HoZzho=
 		</data>
 		<key>main.jsbundle.meta</key>
 		<data>
-		rZvK/t3GmqRrhb7kgWT8uCu66z4=
+		AALlk5gaf8PcF55lZMdIktE8VuU=
 		</data>
 		<key>rubicon-icon-font.ttf</key>
 		<data>
@@ -172,15 +151,114 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>AppIcon20x20@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			YzyP1+T07enDqSRPV4gAzJP2F0M=
+			</data>
+			<key>hash2</key>
+			<data>
+			akwzFYBy0AqX9J401ZlOm9jV+YaBojaR6R6zAzugWAg=
+			</data>
+		</dict>
+		<key>AppIcon20x20@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rlU4wHSdFMqF2D4yjCm5mYwFrOI=
+			</data>
+			<key>hash2</key>
+			<data>
+			rQixiTaxKpIaVil5pTn5i0/NrR2+wvKd02u1Dh2mc08=
+			</data>
+		</dict>
+		<key>AppIcon29x29.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			q+g8DqWMRvgLUsBVSmD9heTYa44=
+			</data>
+			<key>hash2</key>
+			<data>
+			p3y9EVkTluTE7O3MXby2wtdWV0sk9zunowHwDYo4jO0=
+			</data>
+		</dict>
+		<key>AppIcon29x29@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			v80GA8vm2yAirrBR7nbG5BpT81w=
+			</data>
+			<key>hash2</key>
+			<data>
+			Zha4f3KpBdwWrNqEVS1UlV9eoESVZhI4iwNNli1xPxk=
+			</data>
+		</dict>
+		<key>AppIcon40x40@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/AmLFkc1Sk86FTLC8bzTWJIsPGA=
+			</data>
+			<key>hash2</key>
+			<data>
+			0TqDt+xC9cOATriwHkQRH4f97Cqr5tZ91xFnKJdTFyA=
+			</data>
+		</dict>
+		<key>AppIcon40x40@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ghFSZyQHAaYliAQX6w1R9G25+nM=
+			</data>
+			<key>hash2</key>
+			<data>
+			3Z2QJcEtEEtSjvmjPxYq7fwt+b4kRBuOjWb0h7BQU1U=
+			</data>
+		</dict>
+		<key>AppIcon60x60@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ghFSZyQHAaYliAQX6w1R9G25+nM=
+			</data>
+			<key>hash2</key>
+			<data>
+			3Z2QJcEtEEtSjvmjPxYq7fwt+b4kRBuOjWb0h7BQU1U=
+			</data>
+		</dict>
+		<key>AppIcon60x60@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			VfewHsSrrxAG87CuTPs6sHoCKkk=
+			</data>
+			<key>hash2</key>
+			<data>
+			ATRxtYUsDRiZIeN/tcH8Kej45NhGO7UywuZrO9qsm9o=
+			</data>
+		</dict>
+		<key>Assets.car</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			u+5IdLtXpOC/RBLlPt1v3cTtZmc=
+			</data>
+			<key>hash2</key>
+			<data>
+			sYBxdeKdijkMOBfQtQ7aSzNdKp0sRwS/uMlPrijiJw0=
+			</data>
+		</dict>
 		<key>Base.lproj/LaunchScreen.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			snctt5ZepRohGOTV7QQQlHI+4fo=
+			Nba+3p75SN5+K4Szyd8XLTrEFu8=
 			</data>
 			<key>hash2</key>
 			<data>
-			52HvnyDqqkU+ZoshdUwZUUj3gVtxiFRVBYRtTS3/kdc=
+			h6/SVYPdHYpbz3wna9FkFT5LfMLsq3QceeaLZQvDWQk=
 			</data>
 		</dict>
 		<key>Entypo.ttf</key>
@@ -238,50 +316,6 @@
 			fh3QPdTOkLZYBSVUzXRZ3xZxZxc4mlUvpMbVal+JM+Y=
 			</data>
 		</dict>
-		<key>Frameworks/IDEBundleInjection.framework/IDEBundleInjection</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			ooz0sIAaLKBGoFU5iKq8DR11NmY=
-			</data>
-			<key>hash2</key>
-			<data>
-			QTZkTlnemyTcrFMb3v3GdQcfmpRodaOjtevd5TjxiiY=
-			</data>
-		</dict>
-		<key>Frameworks/IDEBundleInjection.framework/Info.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			R/knOPjsjrJNiVtUa2S4kYE749M=
-			</data>
-			<key>hash2</key>
-			<data>
-			wLDjbULmM78l0rN5jh2/yPax234qVZL29OQBQmdYmOU=
-			</data>
-		</dict>
-		<key>Frameworks/IDEBundleInjection.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			qcVgsOCxIzxwcNXLWXgRrNjnuT8=
-			</data>
-			<key>hash2</key>
-			<data>
-			ZARlo4LD/z4nYhaCEocjb6nPjuZDCrLsQzn0n4GVr3s=
-			</data>
-		</dict>
-		<key>Frameworks/IDEBundleInjection.framework/version.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			K7jOt4uC+lqy/StneXlQVk21axY=
-			</data>
-			<key>hash2</key>
-			<data>
-			VzM0aDQjkmLy+IyPasdn9DeGkOOTuNMbKUMz+3efAaU=
-			</data>
-		</dict>
 		<key>Frameworks/Lottie.framework/Info.plist</key>
 		<dict>
 			<key>hash</key>
@@ -297,11 +331,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			blz2QrJjHvUqa4eL7jZyTVh77MI=
+			kQfxljmqOzjVmr1xohNZf6Ftbl8=
 			</data>
 			<key>hash2</key>
 			<data>
-			vhlE6diUWOmJQyq7aifiLP/xZLEe3x3lTCpcOOJnKn0=
+			lzAFBJ4CxnuAZfnmzD6JXlXVd0D/ZeBfzRjgPoRd/mI=
 			</data>
 		</dict>
 		<key>Frameworks/Lottie.framework/_CodeSignature/CodeResources</key>
@@ -315,63 +349,6 @@
 			gfYacDwmWswahKBrc90aRMXP5WafWnCgkm8Lc8QCznE=
 			</data>
 		</dict>
-		<key>Frameworks/XCTest.framework/Info.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			CYfyvPIGUR84QvCD7SuNDvG6Bxc=
-			</data>
-			<key>hash2</key>
-			<data>
-			Xsgm2dBly62EneiB04ryti89smi53XIXAOtYLFyW4ZE=
-			</data>
-		</dict>
-		<key>Frameworks/XCTest.framework/XCTest</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			M3EBma1BpAxt7iGIjYcrm9BnNOc=
-			</data>
-			<key>hash2</key>
-			<data>
-			qAlGOWS6ltLA/WrYd4Rz6EHPivttCiNu41NTW7ulBAI=
-			</data>
-		</dict>
-		<key>Frameworks/XCTest.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			5EUn1qFgVTwSkfSLCubcLwgrx0c=
-			</data>
-			<key>hash2</key>
-			<data>
-			55ZdMLgNGz7Q67XNAv/M4f4uXy0R2d5+tlHRhlkL8t4=
-			</data>
-		</dict>
-		<key>Frameworks/XCTest.framework/en.lproj/InfoPlist.strings</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			TuBj57ZP6zBqcL9HttO2Rucaw9E=
-			</data>
-			<key>hash2</key>
-			<data>
-			89RGkjZaKuewYnjpzwhIswhqfrU8+pcEXqM/DHVrUmo=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
-		<key>Frameworks/XCTest.framework/version.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Etc/8BPenX54rv1uBx24u4bnqTg=
-			</data>
-			<key>hash2</key>
-			<data>
-			Jh5i9giCFfo5GhN25CjMKdDJ6Kdlz/p4L95RITR+WeA=
-			</data>
-		</dict>
 		<key>Ionicons.ttf</key>
 		<dict>
 			<key>hash</key>
@@ -381,6 +358,17 @@
 			<key>hash2</key>
 			<data>
 			u0dnmwuuuEgbf1HGitM65aUmc2y1CxcXzGD/a2X5CKM=
+			</data>
+		</dict>
+		<key>LaunchImage-700-568h@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jUzAVDZErJq8r4xRQMYF5Kc4BgE=
+			</data>
+			<key>hash2</key>
+			<data>
+			zk4M8Nt4RUdrZyscD2Fls3DuhrSZpwnGFwXIWTdHmrw=
 			</data>
 		</dict>
 		<key>MaterialCommunityIcons.ttf</key>
@@ -414,61 +402,6 @@
 			<key>hash2</key>
 			<data>
 			sw1aNDI0CqTWoFwAl/BoysSnzVrJqfoRSzi3y6/KJCM=
-			</data>
-		</dict>
-		<key>PlugIns/coffeewifiTests.xctest.dSYM/Contents/Info.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			HxfowAM9huGj5CNmP8zVRgB6mH4=
-			</data>
-			<key>hash2</key>
-			<data>
-			k0BPnFu0LD6nXODq8Nq778uGoS0AM6NfQqyqjZ1FMo4=
-			</data>
-		</dict>
-		<key>PlugIns/coffeewifiTests.xctest.dSYM/Contents/Resources/DWARF/coffeewifiTests</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			djHdAwhw5XXohZ1ky1ouDW0Ocwo=
-			</data>
-			<key>hash2</key>
-			<data>
-			bTEt620Ijb6gvtvB/61oWCwC9HC3Or+DQomBPnxP5m8=
-			</data>
-		</dict>
-		<key>PlugIns/coffeewifiTests.xctest/Info.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			OLJ/jvbLHhrfFZlB7+hzdhrXTKk=
-			</data>
-			<key>hash2</key>
-			<data>
-			irGRzH2h70hIbYq9tJfi7tNROVzX3WRKlY2ApAMBoa0=
-			</data>
-		</dict>
-		<key>PlugIns/coffeewifiTests.xctest/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			uPlHKWFuIFF64UWImaoce474F1c=
-			</data>
-			<key>hash2</key>
-			<data>
-			s0VhbJwQCO4gpDqHZAgi4pO1peiiAGY/jAmyeOPkE5w=
-			</data>
-		</dict>
-		<key>PlugIns/coffeewifiTests.xctest/coffeewifiTests</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			BUT49Qa3+zm0eQ/xnuDP2VsS9ww=
-			</data>
-			<key>hash2</key>
-			<data>
-			Go4QqQf2TvrWJ1JHD7c0UEDfHd4peGR4X9AjnekhzOM=
 			</data>
 		</dict>
 		<key>Roboto.ttf</key>
@@ -552,33 +485,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dEdSbzGdeOUCxT443akmFxYB1j8=
+			YRkGqY+IWNL26in2Xwrli1BWGfA=
 			</data>
 			<key>hash2</key>
 			<data>
-			57g0TDF33Xy5cwMsKcMJJ1MJdQuDv9FL4OeN/pi/qGI=
+			g/8fkrg0RxumfmUbvXgpOvhgdaXj6nyMguVyEjVg2aA=
 			</data>
 		</dict>
 		<key>main.jsbundle.map</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			rJyOxHy+RXN2qLeyJDWJffnr7Ho=
+			Zxog1Txyf4m3jod4+M1A2HoZzho=
 			</data>
 			<key>hash2</key>
 			<data>
-			QNKD1sLnk1jrWs6yrGm/NZJ8UWjuX6CRQEeM5NuHms8=
+			3d6tBYWEUY+B6wJjpruxuOZrh1j/EHOj0M5LQvGQ6p4=
 			</data>
 		</dict>
 		<key>main.jsbundle.meta</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			rZvK/t3GmqRrhb7kgWT8uCu66z4=
+			AALlk5gaf8PcF55lZMdIktE8VuU=
 			</data>
 			<key>hash2</key>
 			<data>
-			EZ+mKHtVw/PDXcO2SJ6/nflnhofhCEZ+1/+5CulhiKc=
+			c1+NIaGUpoBZXE2mk16s+VV7yLTq8Xq4Qg0ielsFmfA=
 			</data>
 		</dict>
 		<key>rubicon-icon-font.ttf</key>

@@ -37,6 +37,8 @@ export default class SearchFloat extends React.Component {
               onChangeText={(filterName) => this.setState({filterName})}
               value={this.state.filterName}
               onBlur={() => this.props.setFilterName(this.state.filterName)}
+              onSubmitEditing={() => this.props.boundFilterWorkspaces({filterName: this.state.filterName})}
+              maxLength={54}
             />
           </View>
           <Icon name={this.props.filterIconStatus ? 'ios-funnel' : 'ios-funnel-outline'} onPress={() => this.handleFilter()} style={{fontSize: 17}}/>
@@ -49,8 +51,8 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     flexDirection: 'row',
-    top: 20,
-    left: 20,
+    top: 30,
+    // left: 20,
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 10,

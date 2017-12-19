@@ -1,12 +1,13 @@
 import React from 'react';
 import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Container, Header, Card, CardItem, Left, Right, Content, Thumbnail, Body, Image, Button } from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 export default class Orders extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Order Food',
-    tabBarIcon: (<Icon name='ios-food' size={30}/> )
+    tabBarIcon: (<Icon name='food' size={30}/> )
   };
 
   constructor(props) {
@@ -22,21 +23,27 @@ export default class Orders extends React.Component {
   }
 
   renderOrders() {
-    return this.state.loading ? (<Text>Loading</Text>) : (
+    // return this.state.loading ? (<Text>Loading</Text>) : (
 
-      <View>
-        <Text>Food are loaded</Text>
-      </View>
+      return (
+        <View >
+          <View style={{justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{fontSize: 50, fontWeight: 'bold'}}>
+              Coming Soon!
+            </Text>
+          </View>
+        </View>
+      );
 
-    );
+    // );
   }
 
   render() {
     console.log('reviews', this.props.currentSpaceID);
     return (
-      <View style={{backgroundColor: 'white', flex: 1}}>
-        <View style={{padding: 5, paddingTop: 10}}>
-          <Text> {this.props.currentSpaceID} </Text>
+      <View style={{position: 'relative', bottom: -200, backgroundColor: 'white', flex: 1, flexDirection: 'column'}}>
+        <View style={{justifyContent:'center', alignContent: 'center'}}>
+          {/* <Text> {this.props.currentSpaceID} </Text> */}
           {this.renderOrders()}
         </View>
       </View>

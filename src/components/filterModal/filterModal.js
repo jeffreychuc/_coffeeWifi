@@ -12,6 +12,7 @@ export default class FilterModal extends React.Component {
     this.renderModal = this.renderModal.bind(this);
     this.state = {
       filterModalDelay: false,
+      filterOutlet: undefined
     };
   }
 
@@ -27,14 +28,18 @@ export default class FilterModal extends React.Component {
   handleSubmit(e, apply) {
     e.stopPropagation();
     if (apply)  {
-      //do shit
+      this.props.setFilterOutlet(this.state.filterOutlet);
+      this.props.boundFilterWorkspaces({filterOutlet: this.state.filterOutlet});
+      this.props.setFilterIcon(true);
     }
-    console.log('wtf');
+    else  {
+      this.props.setFilterOutlet(undefined);
+      this.props.setFilterIcon(false);
+    }
     this.props.setFilterView(false);
   }
 
   renderModal()  {
-    console.log('state of filter modal is ', this.state);
     return (
       <Container style={styles.container}rounded>
         <Content>
@@ -49,20 +54,21 @@ export default class FilterModal extends React.Component {
                 <Icon name='power' />
               </Left>
               <Body>
-                <Text>Outlets</Text>
+                <Text>Outlet(s)</Text>
               </Body>
               <Right>
                 <TextInput
-                  style={{height: 40, width: 50}}
-                  onChangeText={outlets => this.setState({outlets})}
-                  value={this.state.outlets}
+                  style={{height: 40, width: 50, borderColor: 'black', borderWidth: 1}}
+                  onChangeText={filterOutlet => this.setState({filterOutlet: filterOutlet.toString()})}
+                  value={this.state.filterOutlet}
                   selectTextOnFocus={true}
                   maxLength={2}
                   keyboardType={'numeric'}
+                  textAlign={'center'}
                 />
               </Right>
             </ListItem>
-            <ListItem icon>
+            {/* <ListItem icon>
               <Left>
                 <Icon name="wifi" />
               </Left>
@@ -75,7 +81,7 @@ export default class FilterModal extends React.Component {
                 onValueChange={wifi => this.setState({wifi})}
                 />
               </Right>
-            </ListItem>
+            </ListItem> */}
           </List>
         </Content>
         <View style={styles.buttonBottom}>
@@ -118,10 +124,11 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     flexDirection: 'column',
+    // alignItems: 'center',
     height: 500,
     width: 340,
     top: 60,
-    left: 20,
+    // left: 20,
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 10,

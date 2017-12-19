@@ -10,6 +10,7 @@ import RedoSearchButtonContainer from '../../components/redoSearchButton/redoSea
 import * as Animatable from 'react-native-animatable';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import merge from 'lodash/merge';
+import isEmpty from 'lodash/isEmpty';
 import haversine from 'haversine';
 import Triangle from 'react-native-triangle';
 import shortid from 'shortid';
@@ -32,8 +33,8 @@ export default class Map extends React.Component {
     this.closeAllCallouts = this.closeAllCallouts.bind(this);
     // init empty object so I can key in
     this.markerRefs = {};
-    // this.renderRedoSearchButton = this.renderRedoSearchButton.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
+    this.boundFilterWorkspaces = this.boundFilterWorkspaces.bind(this);
     let renderSearchTimerID;
     // this.fitPadding = this.fitPadding.bind(this);
 
@@ -70,8 +71,6 @@ export default class Map extends React.Component {
     );
     this.watchID = navigator.geolocation.watchPosition((position) => {
       let lastPosition = JSON.stringify(position);
-      console.log('setting state to, ', { lastPosition });
-      // this.setState({lastPosition});
       this.state.lastPosition = lastPosition;
     }, (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000});
@@ -117,8 +116,7 @@ export default class Map extends React.Component {
     let currLong = this.state.region.longitude;
     let latDelta = this.state.region.latitudeDelta;
     let longDelta = this.state.region.longitudeDelta;
-    // 1 latitude is 111045 meters
-    let radius = Math.max(latDelta, longDelta) * 69/2;
+    let radius = Math.max(latDelta, longDelta) * 69/4;
     this.props.fetchLocalWorkspaces([currLat,  currLong], radius).then(currentWorkspaces => this.setState({currentWorkspaces}));
   }
 
@@ -130,7 +128,7 @@ export default class Map extends React.Component {
     }
     //check if this.state.region is null or something
     clearTimeout(this.renderSearchTimerID);
-    if (!isEqual(this.state.lastSearchLocation, this.state.region) && !this.state.renderSearch ) {
+    if (!isEqual(this.state.lastSearchLocation, this.state.region) && !this.state.renderSearch && !this.props.redoSearchButtonStatus) {
       this.renderSearchTimerID = setTimeout(() => this.props.setRedoSearchButton(true), 1000);
     }
   }
@@ -141,6 +139,22 @@ export default class Map extends React.Component {
       edgePadding: DEFAULT_PADDING,
       animated: true,
     });
+  }
+
+  boundFilterWorkspaces(modalFilters) {
+    let currLat = this.state.region.latitude;
+    let currLong = this.state.region.longitude;
+    let latDelta = this.state.region.latitudeDelta;
+    let longDelta = this.state.region.longitudeDelta;
+    let radius = Math.max(latDelta, longDelta) * 69/4;
+
+    this.props.filterWorkspaces({
+      name: modalFilters.filterName ? modalFilters.filterName : this.props.filterName,
+      radius: radius,
+      longitude: currLong,
+      latitude: currLat,
+      outlets: modalFilters.filterOutlet ? modalFilters.filterOutlet : this.props.filterOutler
+    }).then(currentWorkspaces => this.setState({currentWorkspaces}));
   }
 
   closeAllCallouts()  {
@@ -251,16 +265,16 @@ export default class Map extends React.Component {
       <View style={styles.container}>
         {this.renderMapView()}
         <View style={styles.filterModal}>
-          <FilterModalContainer />
+          <FilterModalContainer boundFilterWorkspaces={this.boundFilterWorkspaces} />
         </View >
         {/* <View style={styles.debug}>
           <Text> {this.state.lastPosition}</Text>
         </View> */}
-        <SearchFloatContainer />
+        <SearchFloatContainer boundFilterWorkspaces={this.boundFilterWorkspaces}/>
         <View style={styles.logout}>
-          <MenuIconContainer />
+          <MenuIconContainer boundFilterWorkspaces={this.boundFilterWorkspaces}/>
         </View>
-        <RedoSearchButtonContainer closeAllCallouts={this.closeAllCallouts} getWorkspaces={this.getWorkspaces} />
+        <RedoSearchButtonContainer closeAllCallouts={this.closeAllCallouts} boundFilterWorkspaces={this.boundFilterWorkspaces} />
         <DrawerContainer />
         {this.renderSplashImage()}
       </View>
@@ -300,8 +314,9 @@ const styles = StyleSheet.create({
   filterModal: {
     position: 'absolute',
     top: 20,
-    left: 0,
-    justifyContent: 'center'
+    left: 20,
+    // flex: 1,
+    alignItems: 'center'
   },
   splash: {
     position: 'absolute',

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setFilterIcon, setFilterView } from '../../actions/ui_actions';
+import { setFilterIcon, setFilterView, setFilterOutlet } from '../../actions/ui_actions';
 import { fetchCurrentReviews } from '../../actions/db_actions';
 import FilterModal from './filterModal';
 
@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setFilterIcon: (status) => dispatch(setFilterIcon(status)),
     setFilterView: (status) => dispatch(setFilterView(status)),
+    setFilterOutlet: (value) => dispatch(setFilterOutlet(value)),
   };
 };
 

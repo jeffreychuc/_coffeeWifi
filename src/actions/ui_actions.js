@@ -5,6 +5,7 @@ export const CURRENT_SPACE_ID = 'CURRENT_SPACE_ID';
 export const REDOSEARCH_BUTTON_STATUS = 'REDOSEARCH_BUTTON_STATUS';
 export const CURRENT_FILTERS = 'CURRENT_FILTERS';
 export const FILTER_NAME = 'FILTER_NAME';
+export const FILTER_OUTLET = 'FILTER_OUTLET';
 
 export const setFilterStatus = (filterIconStatus) => ({
   type: FILTER_ICON_STATUS,
@@ -67,4 +68,13 @@ export const setFilterNameValue = (filterName) => ({
 
 export const setFilterName = (filterName) => (dispatch) => (
   dispatch(setFilterNameValue(filterName))
+);
+
+export const setFilterOutletValue = (filterOutlet) => ({
+  type: FILTER_OUTLET,
+  filterOutlet
+});
+
+export const setFilterOutlet = (value) => (dispatch) => (
+  dispatch(setFilterOutletValue(value))
 );

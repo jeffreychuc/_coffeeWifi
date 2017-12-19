@@ -17,7 +17,14 @@ export const filterWorkspaces = (filter) => (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ filter })
-   })
+   }).then( response => {
+    if (response.status === 200) {
+     return response.json();
+    }
+    else {
+     return [];
+    }
+  })
 );
 
 export const fetchLocalWorkspaces = (location, radius) => (
